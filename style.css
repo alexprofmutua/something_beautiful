@@ -1,0 +1,69 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background: radial-gradient(circle at center, rgb(255, 228, 196) 0%, bisque 100%);
+  color: #ffffff49;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.sky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center {
+  position: absolute;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #020600f4;
+  text-shadow: 0 0 10px #620808, 0 0 20px #a1ff6600;
+  letter-spacing: 2px;
+  z-index: 5;
+}
+
+.cloud {
+  position: absolute;
+  background: #fff;
+  color: #111;
+  padding: 20px 40px;
+  border-radius: 60px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.3s ease;
+  animation: float 4s ease-in-out infinite;
+  font-weight: 600;
+}
+
+.writing { top: 15%; left: 40%; }
+
+.code { top: 50%; right: 15%; }
+
+.chess { bottom: 25%; left: 20%; }
+
+.others { bottom: 15%; right: 35%; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.cloud:hover {
+  box-shadow: 0 0 45px rgba(255, 255, 255, 0.6);
+  transform: scale(1.08);
+  background: #f5f5f5;
+}
+
+.cloud {
+  animation-delay: calc(var(--i, 0) * 0.5s);
+  will-change: transform;
+}
