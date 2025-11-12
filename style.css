@@ -6,7 +6,8 @@
 
 body {
   font-family: 'Times New Roman', Times, serif;
-  background: radial-gradient(circle at center, rgb(255, 228, 196) 0%, bisque 100%);
+  /* background-image: url(https://pin.it/4RLhLOcQk); */
+  /* background: radial-gradient(circle at center); */
   color: #ffffff49;
   overflow: hidden;
   height: 100vh;
