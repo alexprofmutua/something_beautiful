@@ -1,0 +1,76 @@
+  body {
+      margin: 0;
+      font-family: 'Times New Roman', serif;
+      background-image: url(https://images.unsplash.com/photo-1570284613060-766c33850e00?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0);
+      background-size: cover;
+      background-position: center;
+      color: white;
+      line-height: 1.6;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 0 0 20px black;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.25);
+    }
+
+    .project {
+      margin-bottom: 60px;
+    }
+
+    .project h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px black;
+    }
+
+    .project p {
+      font-size: 1.15rem;
+      margin-bottom: 15px;
+    }
+
+    /* Code box */
+    .code-block {
+      background: #0e0e0e;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 18px;
+      border-radius: 10px;
+      font-family: Consolas, monospace;
+      font-size: 1rem;
+      color: #00ffb3;
+      white-space: pre;
+      overflow-x: auto;
+      box-shadow: 0 0 18px rgba(0,0,0,0.7);
+    }
+
+    /* Back button */
+    .back-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      background: rgba(0,0,0,0.45);
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.4);
+      transition: 0.3s;
+    }
+
+    .back-home:hover {
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.05);
+    }

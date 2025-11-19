@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Portfolio</title>
+
+  <!-- Chessboard & PGN viewer -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cm-chessboard@8.4.3/assets/chessboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chess.js@1.0.0/dist/chess.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cm-chessboard@8.4.3/dist/cm-chessboard.min.js"></script>
+  <link rel="stylesheet" href="chess.css">
+</head>
+<body>
+
+  <a href="index.html" class="back-home">⟵ Home</a>
+
+  <div class="header">My Chess Games</div>
+
+  <div class="content">
+
+    <!-- 📌 COPY THIS BLOCK FOR EACH GAME -->
+    <div class="game">
+      <h2>Game Title (e.g., Kasparov vs Topalov 1999)</h2>
+
+      <div id="board1" class="board"></div>
+      <textarea id="pgn1">[Event "?"]
+[Site "?"]
+[Date "?"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 *
+      </textarea>
+
+      <button class="play-btn" onclick="loadPGN('board1','pgn1')">Replay Game</button>
+    </div>
+    <!-- END GAME BLOCK -->
+
+  </div>
+
+  <script>
+    function loadPGN(boardID, pgnID) {
+      const chess = new Chess();
+      const board = new Chessboard(document.getElementById(boardID), { position: 'start' });
+      const moves = document.getElementById(pgnID).value.match(/\d+\.\s*[^*]+/g);
+      let i = 0;
+
+      function playNext() {
+        if (!moves || i >= moves.length) return;
+        const parts = moves[i].trim().split(/\s+/);
+        if (parts[1]) chess.move(parts[1], { sloppy: true });
+        if (parts[2]) chess.move(parts[2], { sloppy: true });
+        board.setPosition(chess.fen(), true);
+        i++;
+        setTimeout(playNext, 900); // speed of autoplay (ms)
+      }
+
+      playNext();
+    }
+  </script>
+
+</body>
+</html>
