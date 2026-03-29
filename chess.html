@@ -3,64 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chess Portfolio</title>
-
-  <!-- Chessboard & PGN viewer -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cm-chessboard@8.4.3/assets/chessboard.css">
-  <script src="https://cdn.jsdelivr.net/npm/chess.js@1.0.0/dist/chess.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/cm-chessboard@8.4.3/dist/cm-chessboard.min.js"></script>
+  <title>Chess | something beautiful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
   <link rel="stylesheet" href="chess.css">
+  <script src="https://cdn.jsdelivr.net/npm/chess.js@1.0.0/dist/chess.min.js" defer></script>
+  <script src="chess.js" defer></script>
 </head>
-<body>
+<body class="section-page chess-page">
+  <div class="page-shell">
+    <header class="topbar">
+      <a href="index.html" class="back-home">Back Home</a>
+      <a href="coding.html" class="mini-link">Coding</a>
+    </header>
 
-  <a href="index.html" class="back-home">⟵ Home</a>
+    <main>
+      <section class="page-hero">
+        <div>
+          <p class="eyebrow">Chess</p>
+          <h1 class="page-title">Replay ideas, not just results.</h1>
+          <p class="page-intro">
+            Chess shows up here as study, leadership, and teaching: from co-leading the Williams College Chess Club
+            to volunteering as a chess instructor for younger students.
+          </p>
+        </div>
 
-  <div class="header">My Chess Games</div>
+        <aside class="hero-card">
+          <p class="hero-card-label">Chess Profile</p>
+          <h2>Club leadership and instruction</h2>
+          <p>
+            Co-president of Chess Club at Williams College and former chess instructor volunteer who tutored 12 students across grades 1 through 6.
+          </p>
+        </aside>
+      </section>
 
-  <div class="content">
+      <section class="section-grid chess-grid">
+        <article class="card board-card full-card">
+          <div class="board-layout">
+            <div class="board-panel">
+              <div id="board1" class="board" aria-label="Chessboard"></div>
+              <p id="status1" class="board-status">Ready to replay.</p>
+              <div class="control-row">
+                <button class="play-btn" data-board="board1" data-pgn="pgn1" data-status="status1" data-action="replay">Replay</button>
+                <button class="play-btn" data-board="board1" data-pgn="pgn1" data-status="status1" data-action="step">Step</button>
+                <button class="play-btn" data-board="board1" data-pgn="pgn1" data-status="status1" data-action="reset">Reset</button>
+              </div>
+            </div>
 
-    <!-- 📌 COPY THIS BLOCK FOR EACH GAME -->
-    <div class="game">
-      <h2>Game Title (e.g., Kasparov vs Topalov 1999)</h2>
-
-      <div id="board1" class="board"></div>
-      <textarea id="pgn1">[Event "?"]
-[Site "?"]
-[Date "?"]
-[Round "?"]
-[White "?"]
-[Black "?"]
+            <div class="notation-panel">
+              <p class="card-kicker">PGN Input</p>
+              <h2>Study board</h2>
+              <p class="panel-copy">
+                Paste any PGN below and use the controls to study it on the left. This board is here for review, replay, and teaching.
+              </p>
+              <textarea id="pgn1" class="pgn-input" spellcheck="false">[Event "Study Session"]
+[Site "something beautiful"]
+[Date "2026.03.29"]
+[Round "-"]
+[White "White"]
+[Black "Black"]
 [Result "*"]
 
-1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 *
-      </textarea>
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3 *</textarea>
+            </div>
+          </div>
+        </article>
 
-      <button class="play-btn" onclick="loadPGN('board1','pgn1')">Replay Game</button>
-    </div>
-    <!-- END GAME BLOCK -->
+        <article class="card note-card">
+          <p class="card-kicker">Leadership</p>
+          <h2>Chess as community practice</h2>
+          <p>
+            Serving as co-president of Chess Club means the page is not just about individual play. It is also about shared study, organizing, and keeping the game social.
+          </p>
+        </article>
 
+        <article class="card note-card">
+          <p class="card-kicker">Teaching</p>
+          <h2>Built with instruction in mind</h2>
+          <p>
+            The teaching side matters too. Volunteering as a chess instructor for elementary students makes a simple replay board especially useful:
+            positions can be slowed down, stepped through, and explained.
+          </p>
+          <ul class="pill-list">
+            <li>club leadership</li>
+            <li>student instruction</li>
+            <li>paste PGN</li>
+            <li>replay and reset</li>
+          </ul>
+        </article>
+      </section>
+    </main>
   </div>
-
-  <script>
-    function loadPGN(boardID, pgnID) {
-      const chess = new Chess();
-      const board = new Chessboard(document.getElementById(boardID), { position: 'start' });
-      const moves = document.getElementById(pgnID).value.match(/\d+\.\s*[^*]+/g);
-      let i = 0;
-
-      function playNext() {
-        if (!moves || i >= moves.length) return;
-        const parts = moves[i].trim().split(/\s+/);
-        if (parts[1]) chess.move(parts[1], { sloppy: true });
-        if (parts[2]) chess.move(parts[2], { sloppy: true });
-        board.setPosition(chess.fen(), true);
-        i++;
-        setTimeout(playNext, 900); // speed of autoplay (ms)
-      }
-
-      playNext();
-    }
-  </script>
-
 </body>
 </html>

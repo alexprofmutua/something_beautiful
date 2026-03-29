@@ -3,36 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Writing</title>
+  <title>Writing | something beautiful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
   <link rel="stylesheet" href="writing.css">
 </head>
-<body>
+<body class="section-page writing-page">
+  <div class="page-shell">
+    <header class="topbar">
+      <a href="index.html" class="back-home">Back Home</a>
+      <a href="others.html" class="mini-link">Others</a>
+    </header>
 
-  <!-- Back to home cloud page -->
-  <a href="index.html" class="back-home">⟵ Home</a>
+    <main>
+      <section class="page-hero">
+        <div>
+          <p class="eyebrow">Blog</p>
+          <h1 class="page-title">A writing space for the ideas behind the work.</h1>
+          <p class="page-intro">
+            The profile already suggests the themes: computer science, research, leadership, service, and chess.
+            This page is where those threads can turn into essays, notes, and reflections.
+          </p>
+        </div>
 
-  <div class="header">My Writings</div>
+        <aside class="hero-card">
+          <p class="hero-card-label">Status</p>
+          <h2>Being prepared, not faked</h2>
+          <p>
+            There are no invented posts here. The structure is ready for real writing as soon as you want to publish it.
+          </p>
+        </aside>
+      </section>
 
-  <div class="content">
-    
-    <!-- COPY THIS BLOCK FOR EACH WRITING PIECE -->
-    <div class="piece">
-      <h2>This & That</h2>
-      <p>
-        I tell the tale 
-        It contnues here
-      </p>
-    </div>
+      <section class="section-grid writing-grid">
+        <article class="card writing-card featured-card">
+          <p class="card-kicker">Direction</p>
+          <h2>This page is for the thinking that sits behind the resume lines.</h2>
+          <p class="card-note">Coming into focus</p>
+          <blockquote class="writing-text">Project notes, research reflections, leadership lessons, and chess ideas all belong here.</blockquote>
+          <p class="callout">
+            The blog can grow naturally from the life already visible in the profile, without forcing filler content.
+          </p>
+        </article>
 
-    <!-- ADD YOUR NEXT WRITING BELOW -->
-    <div class="piece">
-      <h2>Another Piece</h2>
-      <p>
-        Your text here...
-      </p>
-    </div>
+        <article class="card writing-card support-card">
+          <p class="card-kicker">Themes</p>
+          <h2>What the writing can hold</h2>
+          <ul class="pill-list">
+            <li>software engineering</li>
+            <li>research</li>
+            <li>student leadership</li>
+            <li>community work</li>
+            <li>chess</li>
+          </ul>
+          <p>
+            The page is ready for short notes, longer essays, and project reflections whenever the first pieces are ready.
+          </p>
+        </article>
 
+        <article class="card journal-card full-card">
+          <div>
+            <p class="card-kicker">Why it matters</p>
+            <h2>Writing can connect the technical, the personal, and the communal.</h2>
+            <p>
+              The same profile that shows code and coursework also shows teaching, service, and leadership.
+              This page can become the place where those parts speak to each other.
+            </p>
+          </div>
+          <ul class="pill-list">
+            <li>study notes</li>
+            <li>project retrospectives</li>
+            <li>research takeaways</li>
+            <li>club life</li>
+            <li>teaching chess</li>
+          </ul>
+        </article>
+      </section>
+    </main>
   </div>
-
 </body>
 </html>

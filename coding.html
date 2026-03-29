@@ -3,42 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Portfolio</title>
+  <title>Coding | something beautiful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
   <link rel="stylesheet" href="coding.css">
 </head>
-<body>
+<body class="section-page coding-page">
+  <div class="page-shell">
+    <header class="topbar">
+      <a href="index.html" class="back-home">Back Home</a>
+      <a href="chess.html" class="mini-link">Chess</a>
+    </header>
 
-  <a href="index.html" class="back-home">⟵ Home</a>
+    <main>
+      <section class="page-hero">
+        <div>
+          <p class="eyebrow">Coding</p>
+          <h1 class="page-title">Practical software, automation, and data-aware problem solving.</h1>
+          <p class="page-intro">
+            The profile points to a technical lane rooted in Python, Java, JavaScript, and hands-on software learning,
+            with work that ranges from automation tooling to national-scale data support.
+          </p>
+        </div>
 
-  <div class="header">My Coding Portfolio</div>
+        <aside class="hero-card">
+          <p class="hero-card-label">Current Focus</p>
+          <h2>Tools that solve real problems</h2>
+          <p>
+            Building useful software, sharpening technical fundamentals, and learning in public through coursework,
+            projects, and applied work.
+          </p>
+        </aside>
+      </section>
 
-  <div class="content">
+      <section class="section-grid coding-grid">
+        <article class="card project-card full-card">
+          <div class="card-header">
+            <div>
+              <p class="card-kicker">Project 01</p>
+              <h2>Neatify</h2>
+            </div>
+            <ul class="pill-list">
+              <li>Python</li>
+              <li>Debugging</li>
+              <li>OOP</li>
+              <li>automation</li>
+            </ul>
+          </div>
 
-    <!-- Copy this block for each project -->
-    <div class="project">
-      <h2>Project Name</h2>
-      <p>
-        Short description — what the project does, language used, tools, etc.
-      </p>
-      <div class="code-block">
-        // Sample code
-        function hello() {
-          console.log("Hello World!");
-        }
-      </div>
-    </div>
+          <p class="project-summary">
+            Neatify is a lightweight Python automation tool that cleans up a cluttered Downloads folder by automatically
+            sorting files into categorized subfolders such as images, documents, videos, archives, and executables.
+          </p>
 
-    <div class="project">
-      <h2>Another Project</h2>
-      <p>
-        Description
-      </p>
-      <div class="code-block">
-        // Code for this project
-      </div>
-    </div>
+          <div class="project-links">
+            <a href="https://github.com/amm22-lab/neatify" target="_blank" rel="noreferrer" class="mini-link">GitHub: amm22-lab/neatify</a>
+          </div>
 
+          <div class="project-columns">
+            <div>
+              <h3>Why it matters</h3>
+              <p>
+                It shows a preference for practical software: identify a repeated annoyance, automate it, and make the machine do the organizing.
+              </p>
+              <p class="code-note">
+                The project also lines up cleanly with the technical signals on the profile: Python, debugging,
+                and object-oriented problem solving.
+              </p>
+            </div>
+
+            <pre class="code-block"><code>WATCHED_FOLDERS = {
+  "Images": {".png", ".jpg", ".jpeg", ".gif"},
+  "Documents": {".pdf", ".docx", ".txt"},
+  "Archives": {".zip", ".tar", ".gz"},
+  "Executables": {".app", ".exe", ".dmg"}
+}</code></pre>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <div>
+            <p class="card-kicker">Applied Work</p>
+            <h2>Research, consulting, and contribution</h2>
+          </div>
+
+          <ul class="project-list">
+            <li>
+              <strong>Kenya National Bureau of Statistics</strong>
+              <span>Research Assistant</span>
+              <p>Supported surveys tied to GDP and CPI computation, validated field-generated datasets, and worked with REDCap and Excel.</p>
+            </li>
+            <li>
+              <strong>Ubuntu Advisory Group</strong>
+              <span>Business Consultant</span>
+              <p>Current consulting work that extends the technical profile into strategy and applied problem solving.</p>
+            </li>
+            <li>
+              <strong>ColorStack</strong>
+              <span>Individual Contributor</span>
+              <p>Ongoing participation in a community centered on technical growth and representation in computing.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article class="card signal-card">
+          <p class="card-kicker">Technical Stack</p>
+          <h2>Skills already visible in the profile</h2>
+          <ul class="pill-list">
+            <li>Python</li>
+            <li>Java</li>
+            <li>JavaScript</li>
+            <li>C#</li>
+            <li>R</li>
+            <li>Bash</li>
+            <li>React.js</li>
+            <li>Unix</li>
+            <li>Git</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Research skills</li>
+            <li>Debugging</li>
+            <li>Ubuntu</li>
+          </ul>
+        </article>
+      </section>
+    </main>
   </div>
-
 </body>
 </html>

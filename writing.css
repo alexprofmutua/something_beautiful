@@ -1,61 +1,77 @@
-    body {
-      margin: 0;
-      font-family: 'Times New Roman', serif;
-      background-image: url(https://images.unsplash.com/photo-1570284613060-766c33850e00?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0);
-      background-size: cover;
-      background-position: center;
-      color: white;
-      line-height: 1.6;
-    }
+.writing-page {
+  --accent: #f3b68d;
+  --accent-soft: rgba(243, 182, 141, 0.16);
+  --accent-strong: #ffd9bf;
+  --chip-bg: rgba(243, 182, 141, 0.12);
+}
 
-    .header {
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 3rem;
-      font-weight: bold;
-      text-shadow: 0 0 20px black;
-    }
+.writing-page .page-title {
+  max-width: 10ch;
+}
 
-    .content {
-      max-width: 900px;
-      margin: auto;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(255,255,255,0.25);
-    }
+.writing-card {
+  display: flex;
+  flex-direction: column;
+}
 
-    .piece {
-      margin-bottom: 60px;
-    }
+.featured-card {
+  grid-column: span 7;
+}
 
-    .piece h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px black;
-    }
+.support-card {
+  grid-column: span 5;
+}
 
-    .piece p {
-      font-size: 1.25rem;
-      white-space: pre-line;
-    }
+.card-note {
+  margin-top: 0.45rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
 
-    .back-home {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: white;
-      background: rgba(0,0,0,0.45);
-      padding: 10px 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(255,255,255,0.4);
-      transition: 0.3s;
-    }
+.writing-text {
+  margin-top: 1.25rem;
+  padding: 1.3rem 1.35rem;
+  border-radius: 1.25rem;
+  background: rgba(7, 12, 24, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
+  line-height: 1.45;
+}
 
-    .back-home:hover {
-      background: rgba(255,255,255,0.2);
-      transform: scale(1.05);
-    }
+.writing-card .callout {
+  margin-top: 1.1rem;
+}
+
+.support-card .pill-list {
+  margin-top: 1rem;
+}
+
+.support-card p:last-child {
+  margin-top: 1rem;
+}
+
+.journal-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.journal-card p {
+  max-width: 55ch;
+}
+
+@media (max-width: 900px) {
+  .featured-card,
+  .support-card {
+    grid-column: 1 / -1;
+  }
+
+  .journal-card {
+    grid-template-columns: 1fr;
+  }
+}

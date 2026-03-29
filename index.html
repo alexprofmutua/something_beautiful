@@ -1,20 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>something_beautiful</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>something beautiful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>tap a cloud to have a better day</h1>
-    <div class="sky">
-        <div class="center">PROF</div>
-        <a href="writing.html" class="cloud writing">Writing</a>
-        <a href="coding.html" class="cloud code"> Coding</a>
-        <a href="chess.html" class="cloud chess"> Chess</a>
-        <a href="others.html" class="cloud others"> Others</a>
-        <div class="sun"></div>
+<body class="home-page" id="top">
+  <div class="sky-scene">
+    <header class="site-header">
+      <a href="#top" class="brand">something beautiful</a>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#blog">Blog</a>
+        <a href="#chess">Chess</a>
+      </nav>
+    </header>
+
+    <main class="home-layout">
+      <section class="portrait-shell missing-photo" id="about" aria-labelledby="portrait-name">
+        <div class="halo halo-one"></div>
+        <div class="halo halo-two"></div>
+
+        <div class="portrait-frame">
+          <img
+            class="portrait-image"
+            src="profile-photo.jpg"
+            alt="Portrait of Alex Mutua"
+            loading="eager"
+            onload="this.closest('.portrait-shell').classList.remove('missing-photo')"
+            onerror="this.style.display='none'; this.closest('.portrait-shell').classList.add('missing-photo')"
+          >
+          <div class="portrait-fallback" aria-hidden="true">
+            <span class="portrait-initials">AM</span>
+          </div>
+        </div>
+
+        <div class="portrait-copy">
+          <p class="portrait-tag">About</p>
+          <h1 id="portrait-name">Alex Mutua</h1>
+          <p class="headline">Computer Science @ Williams | ColorStack</p>
+          <p>
+            Computer science student at Williams College with experience spanning research, student leadership,
+            consulting, automation, and community-centered chess teaching.
+          </p>
+
+          <div class="quick-links">
+            <a href="mailto:amm22@williams.edu">amm22@williams.edu</a>
+            <a href="https://www.linkedin.com/in/alex-m-343952389/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <span>Williamstown, MA</span>
+          </div>
+
+          <ul class="about-pills">
+            <li>Williams College</li>
+            <li>ColorStack</li>
+            <li>Python</li>
+            <li>Chess</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="hero-panel" aria-label="Homepage overview">
+        <div class="hero-copy">
+          <p class="eyebrow">Overview</p>
+          <h2>Student, builder, researcher, and community-minded technologist.</h2>
+          <p class="hero-note">
+            This site now follows a more direct structure: use the navigation above, browse the sections below,
+            or jump into the dedicated pages for projects, profile details, writing, and chess.
+          </p>
+
+          <div class="hero-actions">
+            <a href="coding.html" class="section-link">Projects</a>
+            <a href="others.html" class="section-link">Profile Details</a>
+            <a href="writing.html" class="section-link">Blog</a>
+            <a href="chess.html" class="section-link">Chess</a>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <a href="coding.html" class="overview-card">
+            <p class="section-kicker">Projects</p>
+            <h3>Automation and applied technical work</h3>
+            <p>Neatify, software learning, and work shaped by practical problem solving.</p>
+          </a>
+
+          <a href="others.html" class="overview-card">
+            <p class="section-kicker">Profile</p>
+            <h3>Experience, service, and languages</h3>
+            <p>Consulting, research, leadership, volunteering, and the fuller professional picture.</p>
+          </a>
+
+          <a href="writing.html" class="overview-card">
+            <p class="section-kicker">Blog</p>
+            <h3>Reflections behind the resume lines</h3>
+            <p>A place for notes on research, code, leadership, and ideas still taking shape.</p>
+          </a>
+
+          <a href="chess.html" class="overview-card">
+            <p class="section-kicker">Chess</p>
+            <h3>Study, teaching, and club life</h3>
+            <p>Replay positions, club leadership, and the instructional side of the game.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section class="home-sections" aria-label="Homepage summaries">
+    <div class="section-grid">
+      <article id="education" class="info-card info-card-wide">
+        <p class="section-kicker">Education</p>
+        <h2>Computer science is the center, but the path has multiple classrooms.</h2>
+        <p>
+          The strongest through-line in the profile is a mix of formal study, accelerated software training,
+          and continuing technical coursework.
+        </p>
+
+        <div class="entry-grid">
+          <div class="mini-entry">
+            <h3>Williams College</h3>
+            <p class="entry-meta">Bachelor of Arts, Computer Science · 2025 - 2029</p>
+            <p>Activities include Chess Club and the Williams African Student Organization.</p>
+          </div>
+
+          <div class="mini-entry">
+            <h3>Moringa School</h3>
+            <p class="entry-meta">Certificate, Computer Software Engineering · Aug 2023 - Apr 2024</p>
+            <p>Completed an accelerated software engineering course focused on practical web development foundations.</p>
+          </div>
+
+          <div class="mini-entry">
+            <h3>Continuing Coursework</h3>
+            <p class="entry-meta">Ongoing learning</p>
+            <p>CS50, CodePath Technical Interview Prep, Codecademy Introduction to Java, and freeCodeCamp coursework.</p>
+          </div>
+        </div>
+      </article>
+
+      <article id="projects" class="info-card">
+        <p class="section-kicker">Projects</p>
+        <h2>Neatify turns a real annoyance into a clean automation workflow.</h2>
+        <p>
+          A lightweight Python tool that sorts a cluttered Downloads folder into categorized subfolders for images,
+          documents, videos, archives, and executables.
+        </p>
+        <ul class="info-list">
+          <li>Python</li>
+          <li>Debugging</li>
+          <li>Object-oriented programming</li>
+        </ul>
+        <a href="coding.html" class="section-link">Open Projects Page</a>
+      </article>
+
+      <article class="info-card">
+        <p class="section-kicker">Experience</p>
+        <h2>Work that crosses research, consulting, and campus operations.</h2>
+        <ul class="experience-list">
+          <li>
+            <strong>Business Consultant</strong>
+            <span>Ubuntu Advisory Group · Mar 2026 - Present</span>
+          </li>
+          <li>
+            <strong>Individual Contributor</strong>
+            <span>ColorStack · Dec 2025 - Present</span>
+          </li>
+          <li>
+            <strong>Research Assistant</strong>
+            <span>Kenya National Bureau of Statistics · Jun 2025 - Aug 2025</span>
+          </li>
+          <li>
+            <strong>Usher</strong>
+            <span>68 Center for Career Exploration · Sep 2025 - Present</span>
+          </li>
+        </ul>
+        <a href="others.html" class="section-link">Open Profile Details</a>
+      </article>
+
+      <article id="certifications" class="info-card">
+        <p class="section-kicker">Certifications</p>
+        <h2>Formal credentials paired with ongoing study.</h2>
+        <ul class="credential-list">
+          <li>
+            <strong>Moringa School</strong>
+            <span>Certificate in Computer Software Engineering</span>
+          </li>
+          <li>
+            <strong>CS50</strong>
+            <span>Introduction to Computer Science</span>
+          </li>
+          <li>
+            <strong>CodePath</strong>
+            <span>Technical Interview Prep</span>
+          </li>
+          <li>
+            <strong>Codecademy</strong>
+            <span>Introduction to Java</span>
+          </li>
+        </ul>
+      </article>
+
+      <article id="blog" class="info-card">
+        <p class="section-kicker">Blog</p>
+        <h2>The writing lane is set up for reflections on code, research, and leadership.</h2>
+        <p>
+          This section is ready for study notes, project retrospectives, research reflections, and the kind of writing
+          that connects software with the people it serves.
+        </p>
+        <ul class="info-list">
+          <li>computer science</li>
+          <li>research</li>
+          <li>student leadership</li>
+          <li>chess</li>
+        </ul>
+        <a href="writing.html" class="section-link">Open Blog Page</a>
+      </article>
+
+      <article id="chess" class="info-card">
+        <p class="section-kicker">Chess</p>
+        <h2>Not just a hobby: leadership, teaching, and study all show up here.</h2>
+        <p>
+          Alex serves as co-president of Chess Club at Williams College and previously volunteered as a chess instructor,
+          tutoring 12 students across grades 1 through 6.
+        </p>
+        <ul class="info-list">
+          <li>co-president, chess club</li>
+          <li>chess instructor volunteer</li>
+          <li>study and replay</li>
+        </ul>
+        <a href="chess.html" class="section-link">Open Chess Page</a>
+      </article>
     </div>
+  </section>
 </body>
 </html>
