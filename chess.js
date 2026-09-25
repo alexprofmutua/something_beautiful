@@ -1,263 +1,234 @@
-const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+/**
+ * Chess replay — favorite games list + auto-play
+ * Loads after chess-libs-bootstrap (inline module in chess.html) sets window.ChessLibs.
+ * Works when opening chess.html via file:// (needs internet for CDN piece assets).
+ */
+(function () {
+  const ASSETS_URL = "https://cdn.jsdelivr.net/npm/cm-chessboard@8.12.11/assets/";
+  const MY_USERNAME = "nezhprodigy";
 
-const PIECES = {
-  p: "♟",
-  r: "♜",
-  n: "♞",
-  b: "♝",
-  q: "♛",
-  k: "♚",
-  P: "♙",
-  R: "♖",
-  N: "♘",
-  B: "♗",
-  Q: "♕",
-  K: "♔"
-};
+  let Chess;
+  let Chessboard;
+  let FEN;
+  let COLOR;
+  let replayBoard = null;
+  let replaySession = 0;
+  let selectedPgn = "";
 
-const boardStates = new Map();
+  function boot() {
+    if (!window.ChessLibs) return;
+    ({ Chess, Chessboard, FEN, COLOR } = window.ChessLibs);
 
-function fenToSquares(fen) {
-  const placement = fen.split(" ")[0];
-  const rows = placement.split("/");
-
-  return rows.flatMap((row) => {
-    const squares = [];
-
-    for (const char of row) {
-      if (/\d/.test(char)) {
-        for (let i = 0; i < Number(char); i += 1) {
-          squares.push("");
-        }
-      } else {
-        squares.push(char);
-      }
-    }
-
-    return squares;
-  });
-}
-
-function renderBoard(boardElement, fen) {
-  if (!boardElement) {
-    return;
+    initBoard();
+    initGameList();
+    document.getElementById("replay-btn")?.addEventListener("click", () => startReplay());
   }
 
-  const squares = fenToSquares(fen);
-  boardElement.innerHTML = "";
-
-  squares.forEach((piece, index) => {
-    const row = Math.floor(index / 8);
-    const column = index % 8;
-    const square = document.createElement("div");
-    const isDark = (row + column) % 2 === 0;
-
-    square.className = `square ${isDark ? "dark" : "light"}`;
-
-    if (column === 0) {
-      square.dataset.rank = String(8 - row);
-    }
-
-    if (row === 7) {
-      square.dataset.file = String.fromCharCode(97 + column);
-    }
-
-    if (piece) {
-      const pieceNode = document.createElement("span");
-      pieceNode.className = "piece";
-      pieceNode.textContent = PIECES[piece];
-      square.appendChild(pieceNode);
-    }
-
-    boardElement.appendChild(square);
-  });
-}
-
-function extractMoves(pgnText) {
-  return pgnText
-    .replace(/\[[^\]]*\]\s*/g, " ")
-    .replace(/\{[^}]*\}/g, " ")
-    .replace(/;.*$/gm, " ")
-    .replace(/\([^)]*\)/g, " ")
-    .replace(/\$\d+/g, " ")
-    .replace(/\d+\.(\.\.)?/g, " ")
-    .replace(/1-0|0-1|1\/2-1\/2|\*/g, " ")
-    .trim()
-    .split(/\s+/)
-    .map((token) => token.replace(/[!?]+/g, ""))
-    .filter(Boolean);
-}
-
-function buildPositions(pgnText) {
-  if (typeof Chess === "undefined") {
-    throw new Error("Chess library unavailable.");
-  }
-
-  const chess = new Chess();
-  const moves = extractMoves(pgnText);
-  const positions = [chess.fen()];
-
-  for (const move of moves) {
-    const applied = chess.move(move, { sloppy: true });
-
-    if (!applied) {
-      throw new Error(`Could not read move "${move}".`);
-    }
-
-    positions.push(chess.fen());
-  }
-
-  return positions;
-}
-
-function stopPlayback(state) {
-  if (state.timer) {
-    clearTimeout(state.timer);
-    state.timer = null;
-  }
-}
-
-function updateStatus(state, message) {
-  state.status.textContent = message;
-}
-
-function resetBoard(state, message = "Back at the starting position.") {
-  stopPlayback(state);
-  state.currentIndex = 0;
-  renderBoard(state.board, state.positions[0]);
-  updateStatus(state, message);
-}
-
-function ensurePositions(state) {
-  const nextSource = state.input.value.trim();
-
-  if (state.source === nextSource) {
-    return;
-  }
-
-  state.positions = buildPositions(nextSource);
-  state.source = nextSource;
-  state.currentIndex = 0;
-  renderBoard(state.board, state.positions[0]);
-
-  const halfMoves = state.positions.length - 1;
-  const fullMoves = Math.ceil(halfMoves / 2);
-  updateStatus(state, `${fullMoves} move${fullMoves === 1 ? "" : "s"} loaded.`);
-}
-
-function replay(state) {
-  try {
-    ensurePositions(state);
-  } catch (error) {
-    updateStatus(state, error.message);
-    return;
-  }
-
-  stopPlayback(state);
-
-  if (state.positions.length === 1) {
-    updateStatus(state, "No moves to replay yet.");
-    return;
-  }
-
-  state.currentIndex = 0;
-  renderBoard(state.board, state.positions[0]);
-  updateStatus(state, "Replaying...");
-
-  function stepForward() {
-    if (state.currentIndex >= state.positions.length - 1) {
-      state.timer = null;
-      updateStatus(state, "Replay complete.");
+  function whenLibsReady(fn) {
+    if (window.ChessLibs) {
+      fn();
       return;
     }
-
-    state.currentIndex += 1;
-    renderBoard(state.board, state.positions[state.currentIndex]);
-    updateStatus(state, `Move ${state.currentIndex} of ${state.positions.length - 1}.`);
-    state.timer = setTimeout(stepForward, 700);
+    window.addEventListener("chess-libs-ready", fn, { once: true });
   }
 
-  state.timer = setTimeout(stepForward, 500);
-}
+  document.addEventListener("DOMContentLoaded", () => {
+    whenLibsReady(boot);
+  });
 
-function step(state) {
-  try {
-    ensurePositions(state);
-  } catch (error) {
-    updateStatus(state, error.message);
-    return;
-  }
+  function initBoard() {
+    const boardEl = document.getElementById("replay-board");
+    if (!boardEl || !Chessboard) return;
 
-  stopPlayback(state);
-
-  if (state.currentIndex >= state.positions.length - 1) {
-    updateStatus(state, "You are already at the final position.");
-    return;
-  }
-
-  state.currentIndex += 1;
-  renderBoard(state.board, state.positions[state.currentIndex]);
-  updateStatus(state, `Move ${state.currentIndex} of ${state.positions.length - 1}.`);
-}
-
-function setupBoards() {
-  const boards = document.querySelectorAll(".board");
-
-  boards.forEach((board) => {
-    const boardId = board.id;
-    const control = document.querySelector(`[data-board="${boardId}"]`);
-    const pgnId = control?.dataset.pgn;
-    const statusId = control?.dataset.status;
-    const input = pgnId ? document.getElementById(pgnId) : null;
-    const status = statusId ? document.getElementById(statusId) : null;
-
-    if (!boardId || !input || !status) {
-      return;
-    }
-
-    const state = {
-      board,
-      input,
-      status,
-      positions: [START_FEN],
-      currentIndex: 0,
-      source: "",
-      timer: null
-    };
-
-    boardStates.set(boardId, state);
-    renderBoard(board, state.positions[0]);
-
-    input.addEventListener("input", () => {
-      stopPlayback(state);
-      state.source = "";
-      updateStatus(state, "PGN updated. Replay to load it.");
+    replayBoard = new Chessboard(boardEl, {
+      position: FEN.start,
+      assetsUrl: ASSETS_URL,
+      style: {
+        showCoordinates: true,
+        animationDuration: 300,
+      },
     });
-  });
+  }
 
-  document.querySelectorAll("[data-action]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const boardId = button.dataset.board;
-      const action = button.dataset.action;
-      const state = boardStates.get(boardId);
+  function initGameList() {
+    const listEl = document.getElementById("game-list");
+    if (!listEl || typeof FAVORITE_GAMES === "undefined") return;
 
-      if (!state) {
+    listEl.innerHTML = "";
+
+    FAVORITE_GAMES.forEach((game) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "game-list-item";
+      btn.dataset.gameId = game.id;
+      btn.innerHTML = `
+      <span class="game-list-title">${game.title}</span>
+      <span class="game-list-year">${game.year}</span>
+      ${game.event ? `<span class="game-list-event">${game.event}</span>` : ""}
+    `;
+      btn.addEventListener("click", () => selectGame(game.id));
+      listEl.appendChild(btn);
+    });
+
+    if (FAVORITE_GAMES.length > 0) {
+      requestAnimationFrame(() => selectGame(FAVORITE_GAMES[0].id));
+    }
+  }
+
+  function selectGame(gameId) {
+    const game = FAVORITE_GAMES.find((g) => g.id === gameId);
+    if (!game) return;
+
+    document.querySelectorAll(".game-list-item").forEach((el) => {
+      el.classList.toggle("is-active", el.dataset.gameId === gameId);
+    });
+
+    const pgnEl = document.getElementById("pgn1");
+    const titleEl = document.getElementById("replay-game-title");
+    selectedPgn = game.pgn;
+    if (pgnEl) pgnEl.value = game.pgn;
+    if (titleEl) titleEl.textContent = `${game.title} · ${game.year}`;
+
+    startReplay(game.pgn);
+  }
+
+  function getOrientationForPgn(pgnText) {
+    const white = pgnText.match(/\[White\s+"([^"]+)"\]/i)?.[1]?.toLowerCase();
+    const black = pgnText.match(/\[Black\s+"([^"]+)"\]/i)?.[1]?.toLowerCase();
+    const me = MY_USERNAME.toLowerCase();
+
+    if (black === me) return COLOR.black;
+    if (white === me) return COLOR.white;
+    return COLOR.white;
+  }
+
+  function extractMoves(pgnText) {
+    const movetext = pgnText
+      .replace(/\{[\s\S]*?\}/g, " ")
+      .replace(/\[[^\]]*\]/g, " ")
+      .replace(/\([^)]*\)/g, " ")
+      .replace(/\d+\.\.\./g, " ")
+      .replace(/\d+\./g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/\s(1-0|0-1|1\/2-1\/2|\*)\s*$/i, "");
+
+    const tokens = movetext.split(" ").filter(Boolean);
+    const game = new Chess();
+    const moves = [];
+
+    for (const token of tokens) {
+      if (/^(1-0|0-1|1\/2-1\/2|\*)$/i.test(token)) break;
+
+      const san = token.replace(/\$\d+/g, "").replace(/[?!]+/g, "").replace(/[+#!]+$/g, "");
+      let played = game.move(san);
+      if (!played) played = game.move(token);
+      if (!played) return null;
+
+      moves.push({
+        from: played.from,
+        to: played.to,
+        promotion: played.promotion,
+        san: played.san,
+      });
+    }
+
+    return moves.length > 0 ? moves : null;
+  }
+
+  function getMovesFromPgn(pgnText) {
+    const text = pgnText.trim();
+    const game = new Chess();
+
+    try {
+      game.loadPgn(text, { strict: false });
+      const history = game.history({ verbose: true });
+      if (history.length > 0) {
+        return history.map((m) => ({
+          from: m.from,
+          to: m.to,
+          promotion: m.promotion,
+          san: m.san,
+        }));
+      }
+    } catch (_) {
+      /* fall through */
+    }
+
+    return extractMoves(text);
+  }
+
+  function cancelReplay() {
+    replaySession += 1;
+  }
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function runReplay(moves, statusEl, orientation = COLOR.white) {
+    const session = replaySession;
+
+    if (!replayBoard) initBoard();
+    if (!replayBoard) {
+      if (statusEl) statusEl.textContent = "Board failed to load. Refresh the page.";
+      return;
+    }
+
+    const replayGame = new Chess();
+    await replayBoard.setOrientation(orientation, false);
+    await replayBoard.setPosition(FEN.start, false);
+    if (session !== replaySession) return;
+
+    if (statusEl) statusEl.textContent = "Replaying…";
+
+    for (let i = 0; i < moves.length; i += 1) {
+      if (session !== replaySession) return;
+
+      const moveData = moves[i];
+      const payload = { from: moveData.from, to: moveData.to };
+      if (moveData.promotion) payload.promotion = moveData.promotion;
+
+      const played = replayGame.move(payload);
+      if (!played) {
+        if (statusEl) {
+          statusEl.textContent = `Stopped at move ${i + 1} — could not play ${moveData.san}.`;
+        }
         return;
       }
 
-      if (action === "replay") {
-        replay(state);
-      }
+      await replayBoard.setPosition(replayGame.fen(), true);
+      if (session !== replaySession) return;
 
-      if (action === "step") {
-        step(state);
-      }
+      if (statusEl) statusEl.textContent = `Move ${i + 1} of ${moves.length}`;
+      await sleep(650);
+    }
 
-      if (action === "reset") {
-        resetBoard(state);
+    if (session !== replaySession) return;
+    if (statusEl) statusEl.textContent = `Replay complete — ${moves.length} moves.`;
+  }
+
+  function startReplay(pgnOverride) {
+    const pgnEl = document.getElementById("pgn1");
+    const statusEl = document.getElementById("replay-status");
+
+    const pgnText = (pgnOverride ?? selectedPgn ?? pgnEl?.value ?? "").trim();
+    if (!pgnText) return;
+
+    cancelReplay();
+
+    const moves = getMovesFromPgn(pgnText);
+    if (!moves || moves.length === 0) {
+      if (statusEl) {
+        statusEl.textContent = moves
+          ? "No moves found in that PGN."
+          : "Could not read that PGN. Check the format and try again.";
       }
+      return;
+    }
+
+    void runReplay(moves, statusEl, getOrientationForPgn(pgnText)).catch((err) => {
+      if (statusEl) statusEl.textContent = `Replay error: ${err.message}`;
     });
-  });
-}
-
-document.addEventListener("DOMContentLoaded", setupBoards);
+  }
+})();

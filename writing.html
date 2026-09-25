@@ -3,85 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Writing | something beautiful</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <title>Writing · Alex Mutua</title>
+  <meta name="description" content="Essays and notes by Alex Mutua on software, research, leadership, and chess.">
   <link rel="stylesheet" href="pages.css">
-  <link rel="stylesheet" href="writing.css">
 </head>
-<body class="section-page writing-page">
+<body class="sky-background">
+
+  <nav class="global-nav" aria-label="Global navigation">
+    <a href="index.html" class="nav-logo">AM</a>
+    <div class="nav-links">
+      <a href="coding.html">Coding</a>
+      <a href="writing.html" class="active">Writing</a>
+      <a href="chess.html">Chess</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <a href="mailto:amm22@williams.edu" class="nav-cta">Get in touch</a>
+  </nav>
+
   <div class="page-shell">
-    <header class="topbar">
-      <a href="index.html" class="back-home">Back Home</a>
-      <a href="others.html" class="mini-link">Others</a>
-    </header>
 
     <main>
-      <section class="page-hero">
+      <section class="page-hero" data-reveal>
         <div>
           <p class="eyebrow">Blog</p>
-          <h1 class="page-title">A writing space for the ideas behind the work.</h1>
+          <h1 class="page-title">Thinking in public.</h1>
           <p class="page-intro">
-            The profile already suggests the themes: computer science, research, leadership, service, and chess.
-            This page is where those threads can turn into essays, notes, and reflections.
+            Essays and notes on software, research, leadership, and chess —
+            the ideas behind the projects and the person behind the résumé.
           </p>
         </div>
-
         <aside class="hero-card">
-          <p class="hero-card-label">Status</p>
-          <h2>Being prepared, not faked</h2>
-          <p>
-            There are no invented posts here. The structure is ready for real writing as soon as you want to publish it.
-          </p>
+          <p class="hero-card-label">Themes</p>
+          <h2>CS · Research · Leadership · Chess</h2>
+          <p>Real writing, added as it happens — no filler, no fake posts.</p>
+          <p class="hero-card-label" style="margin-top:.85rem">Format</p>
+          <p>Short-form notes and longer retrospectives — whatever length the idea earns.</p>
         </aside>
       </section>
 
-      <section class="section-grid writing-grid">
-        <article class="card writing-card featured-card">
-          <p class="card-kicker">Direction</p>
-          <h2>This page is for the thinking that sits behind the resume lines.</h2>
-          <p class="card-note">Coming into focus</p>
-          <blockquote class="writing-text">Project notes, research reflections, leadership lessons, and chess ideas all belong here.</blockquote>
+      <section class="section-grid">
+
+        <article class="card full-card" data-reveal>
+          <p class="card-kicker">Mission</p>
+          <h2>A space for the work between the lines</h2>
+          <blockquote class="writing-text">
+            The best portfolios don't just list what you built — they explain why you built it,
+            what you learned, and who it was for.
+          </blockquote>
           <p class="callout">
-            The blog can grow naturally from the life already visible in the profile, without forcing filler content.
+            This page is the honest record: project retrospectives, research reflections, leadership
+            lessons, and chess study notes — the thinking that makes the technical work legible.
           </p>
         </article>
 
-        <article class="card writing-card support-card">
-          <p class="card-kicker">Themes</p>
-          <h2>What the writing can hold</h2>
-          <ul class="pill-list">
-            <li>software engineering</li>
-            <li>research</li>
-            <li>student leadership</li>
-            <li>community work</li>
-            <li>chess</li>
-          </ul>
+        <article class="article-card" data-reveal>
+          <p class="article-date">Draft · Software</p>
+          <h3>On building Agent Neat</h3>
           <p>
-            The page is ready for short notes, longer essays, and project reflections whenever the first pieces are ready.
+            Why automate the Downloads folder? Because small, repeated annoyances are exactly
+            where good engineers learn to think in systems — classify, route, undo, repeat.
           </p>
+          <span class="article-arrow">Read when published →</span>
         </article>
 
-        <article class="card journal-card full-card">
-          <div>
-            <p class="card-kicker">Why it matters</p>
-            <h2>Writing can connect the technical, the personal, and the communal.</h2>
-            <p>
-              The same profile that shows code and coursework also shows teaching, service, and leadership.
-              This page can become the place where those parts speak to each other.
-            </p>
-          </div>
-          <ul class="pill-list">
-            <li>study notes</li>
-            <li>project retrospectives</li>
-            <li>research takeaways</li>
-            <li>club life</li>
-            <li>teaching chess</li>
-          </ul>
+        <article class="article-card" data-reveal>
+          <p class="article-date">Draft · Research</p>
+          <h3>What national statistics taught me about data</h3>
+          <p>
+            Working at KNBS showed me that the hardest part of data isn't the analysis —
+            it's trusting the field data is clean before you ever open a spreadsheet.
+          </p>
+          <span class="article-arrow">Read when published →</span>
         </article>
+
+        <article class="article-card" data-reveal>
+          <p class="article-date">Draft · Leadership</p>
+          <h3>Chess as teaching</h3>
+          <p>
+            Twelve elementary students, one board, and the lesson that clarity beats complexity
+            every single time — on the board and in code reviews.
+          </p>
+          <span class="article-arrow">Read when published →</span>
+        </article>
+
+        <article class="article-card" data-reveal>
+          <p class="article-date">Draft · Community</p>
+          <h3>ColorStack and building in public</h3>
+          <p>
+            What it means to contribute to a community of Black and Latinx computer science students
+            while still figuring out your own path through the major.
+          </p>
+          <span class="article-arrow">Read when published →</span>
+        </article>
+
+        <article class="article-card" data-reveal>
+          <p class="article-date">Draft · Languages</p>
+          <h3>Four languages and one brain</h3>
+          <p>
+            English, Spanish, Swahili, Kamba — growing up between languages taught me that
+            context is everything, in conversation and in code.
+          </p>
+          <span class="article-arrow">Read when published →</span>
+        </article>
+
       </section>
+
+      <footer class="page-footer" data-reveal>
+        <p>Projects in <a href="coding.html">Coding</a></p>
+        <nav aria-label="Next section">
+          <a href="coding.html">← Coding</a>
+          <a href="chess.html">Chess →</a>
+        </nav>
+      </footer>
     </main>
   </div>
+
+  <script src="nav.js"></script>
 </body>
 </html>

@@ -3,240 +3,309 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>something beautiful</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <title>Alex Mutua · Portfolio</title>
+  <meta name="description" content="Portfolio of Alex Mutua — Computer Science at Williams College, ColorStack, consultant, builder, and chess leader.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="enhancements.css">
 </head>
-<body class="home-page" id="top">
-  <div class="sky-scene">
-    <header class="site-header">
-      <a href="#top" class="brand">something beautiful</a>
+<body class="sky-background">
 
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#projects">Projects</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#blog">Blog</a>
-        <a href="#chess">Chess</a>
-      </nav>
-    </header>
+  <!-- ── Top navigation bar ── -->
+  <nav class="global-nav" aria-label="Global navigation">
+    <a href="index.html" class="nav-logo">AM</a>
+    <div class="nav-links">
+      <a href="coding.html">Coding</a>
+      <a href="writing.html">Writing</a>
+      <a href="chess.html">Chess</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <a href="mailto:amm22@williams.edu" class="nav-cta">Get in touch</a>
+  </nav>
 
-    <main class="home-layout">
-      <section class="portrait-shell missing-photo" id="about" aria-labelledby="portrait-name">
-        <div class="halo halo-one"></div>
-        <div class="halo halo-two"></div>
+  <section class="hero-sky" id="top">
+    <p class="tagline">tap a cloud to have a better day</p>
 
-        <div class="portrait-frame">
-          <img
-            class="portrait-image"
-            src="profile-photo.jpg"
-            alt="Portrait of Alex Mutua"
-            loading="eager"
-            onload="this.closest('.portrait-shell').classList.remove('missing-photo')"
-            onerror="this.style.display='none'; this.closest('.portrait-shell').classList.add('missing-photo')"
-          >
-          <div class="portrait-fallback" aria-hidden="true">
-            <span class="portrait-initials">AM</span>
-          </div>
-        </div>
+    <main class="sky">
+      <div class="sky-deco" aria-hidden="true">
+        <div class="cloud cloud-deco deco-1"></div>
+        <div class="cloud cloud-deco deco-2"></div>
+        <div class="cloud cloud-deco deco-3"></div>
+        <div class="cloud cloud-deco deco-4"></div>
+        <div class="cloud cloud-deco deco-5"></div>
+      </div>
 
-        <div class="portrait-copy">
-          <p class="portrait-tag">About</p>
-          <h1 id="portrait-name">Alex Mutua</h1>
-          <p class="headline">Computer Science @ Williams | ColorStack</p>
-          <p>
-            Computer science student at Williams College with experience spanning research, student leadership,
-            consulting, automation, and community-centered chess teaching.
-          </p>
+      <div class="sky-stage">
+        <a href="writing.html" class="cloud cloud-nav writing">
+          <span class="cloud-label">Writing</span>
+          <span class="cloud-hint">Essays &amp; notes</span>
+        </a>
+        <a href="coding.html" class="cloud cloud-nav code">
+          <span class="cloud-label">Coding</span>
+          <span class="cloud-hint">Projects &amp; stack</span>
+        </a>
 
-          <div class="quick-links">
-            <a href="mailto:amm22@williams.edu">amm22@williams.edu</a>
-            <a href="https://www.linkedin.com/in/alex-m-343952389/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <span>Williamstown, MA</span>
-          </div>
-
-          <ul class="about-pills">
-            <li>Williams College</li>
-            <li>ColorStack</li>
-            <li>Python</li>
-            <li>Chess</li>
+        <div class="center">
+          <p class="center-eyebrow">Portfolio</p>
+          <h1 class="center-name">Alex Mutua</h1>
+          <p class="center-tagline">Computer Science @ Williams · ColorStack</p>
+          <ul class="founder-lines founder-lines--center" aria-label="Founder ventures">
+            <li class="founder-line">
+              <span class="founder-label">Founder &amp; Developer</span>
+              <span class="founder-venture">Showcase</span>
+              <span class="founder-note">In development</span>
+            </li>
+            <li class="founder-line founder-line--upcoming">
+              <span class="founder-label">Founder &amp; Developer</span>
+              <span class="founder-venture">Pigeon</span>
+              <span class="founder-note">Upcoming</span>
+            </li>
           </ul>
-        </div>
-      </section>
-
-      <section class="hero-panel" aria-label="Homepage overview">
-        <div class="hero-copy">
-          <p class="eyebrow">Overview</p>
-          <h2>Student, builder, researcher, and community-minded technologist.</h2>
-          <p class="hero-note">
-            This site now follows a more direct structure: use the navigation above, browse the sections below,
-            or jump into the dedicated pages for projects, profile details, writing, and chess.
-          </p>
-
-          <div class="hero-actions">
-            <a href="coding.html" class="section-link">Projects</a>
-            <a href="others.html" class="section-link">Profile Details</a>
-            <a href="writing.html" class="section-link">Blog</a>
-            <a href="chess.html" class="section-link">Chess</a>
+          <div class="center-links">
+            <a href="mailto:amm22@williams.edu">Email</a>
+            <a href="https://www.linkedin.com/in/alex-m-343952389/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/amm22-lab" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="#explore">Explore</a>
           </div>
         </div>
 
-        <div class="hero-grid">
-          <a href="coding.html" class="overview-card">
-            <p class="section-kicker">Projects</p>
-            <h3>Automation and applied technical work</h3>
-            <p>Neatify, software learning, and work shaped by practical problem solving.</p>
-          </a>
+        <a href="chess.html" class="cloud cloud-nav chess">
+          <span class="cloud-label">Chess</span>
+          <span class="cloud-hint">Club &amp; replay</span>
+        </a>
+        <a href="profile.html" class="cloud cloud-nav profile">
+          <span class="cloud-label">Profile</span>
+          <span class="cloud-hint">Full résumé</span>
+        </a>
+      </div>
 
-          <a href="others.html" class="overview-card">
-            <p class="section-kicker">Profile</p>
-            <h3>Experience, service, and languages</h3>
-            <p>Consulting, research, leadership, volunteering, and the fuller professional picture.</p>
-          </a>
-
-          <a href="writing.html" class="overview-card">
-            <p class="section-kicker">Blog</p>
-            <h3>Reflections behind the resume lines</h3>
-            <p>A place for notes on research, code, leadership, and ideas still taking shape.</p>
-          </a>
-
-          <a href="chess.html" class="overview-card">
-            <p class="section-kicker">Chess</p>
-            <h3>Study, teaching, and club life</h3>
-            <p>Replay positions, club leadership, and the instructional side of the game.</p>
-          </a>
-        </div>
-      </section>
+      <a href="#explore" class="scroll-hint">
+        <span>Explore portfolio</span>
+        <span class="scroll-hint-arrow" aria-hidden="true">↓</span>
+      </a>
     </main>
+  </section>
+
+  <div class="portfolio-body" id="explore">
+    <div class="portfolio-inner">
+
+      <!-- Stats row -->
+      <div class="stats-row" aria-label="Highlights">
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">7</span>
+          <span class="stat-label">Work roles</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">6</span>
+          <span class="stat-label">Leadership roles</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">12</span>
+          <span class="stat-label">Students taught chess</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">4</span>
+          <span class="stat-label">Languages spoken</span>
+        </div>
+      </div>
+
+      <!-- Availability banner -->
+      <div class="availability-banner" data-reveal>
+        <span class="avail-dot" aria-hidden="true"></span>
+        <p>Open to <strong>summer internships</strong> and <strong>research roles</strong> for 2026 —
+          <a href="mailto:amm22@williams.edu">reach out</a>
+        </p>
+      </div>
+
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Navigate</p>
+        <h2>Everything worth knowing, organized by cloud.</h2>
+        <p>Each section goes deeper — projects, writing, chess, and the full professional record.</p>
+      </header>
+
+      <div class="highlights-grid">
+        <a href="coding.html" class="highlight-card" data-reveal>
+          <p class="card-kicker">Coding</p>
+          <h3>CLI tools &amp; automation</h3>
+          <p>
+            colorBash on Homebrew, go, and Agent Neat — open-source CLI tools on GitHub. First projects
+            launching on Showcase when the hub goes live.
+          </p>
+          <span class="card-link">View projects →</span>
+        </a>
+
+        <a href="profile.html" class="highlight-card" data-reveal>
+          <p class="card-kicker">Experience</p>
+          <h3>Consulting, research &amp; campus</h3>
+          <p>
+            Consultant at Ubuntu Advisory Group, ColorStack contributor, president of Cultural Cooking Club,
+            co-president of Williams Chess Club, WASO MinCo Representative, and KNBS research alum — plus Showcase &amp; Pigeon in development.
+          </p>
+          <span class="card-link">Full profile →</span>
+        </a>
+
+        <a href="chess.html" class="highlight-card" data-reveal>
+          <p class="card-kicker">Chess</p>
+          <h3>Leadership on and off the board</h3>
+          <p>
+            Co-president of Williams Chess Club, volunteer instructor for grades 1–6,
+            and an interactive board to replay games move by move.
+          </p>
+          <span class="card-link">Open chess page →</span>
+        </a>
+
+        <a href="writing.html" class="highlight-card" data-reveal>
+          <p class="card-kicker">Writing</p>
+          <h3>Reflections behind the résumé</h3>
+          <p>
+            Notes on software, research, student leadership, and chess —
+            the thinking that connects the technical work to the people it serves.
+          </p>
+          <span class="card-link">Read writing →</span>
+        </a>
+      </div>
+
+      <!-- Timeline -->
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Timeline</p>
+        <h2>Where the work has taken me.</h2>
+      </header>
+
+      <div class="timeline-preview" role="list">
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">Mar 2026 – Present</span>
+          <div>
+            <p class="timeline-org">Ubuntu Advisory Group</p>
+            <h3>Consultant</h3>
+            <p>Client-facing consulting at a nonprofit advisory organization.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">Spring 2026</span>
+          <div>
+            <p class="timeline-org">CodePath</p>
+            <h3>Technical Interview Prep</h3>
+            <p>Algorithms and interview prep — in progress this semester.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">2025 – Present</span>
+          <div>
+            <p class="timeline-org">Showcase</p>
+            <h3>Founder &amp; Developer · In development</h3>
+            <p>CS project hub — built from scratch, the site we are working on now.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">Upcoming</span>
+          <div>
+            <p class="timeline-org">Pigeon</p>
+            <h3>Founder &amp; Developer · Planned</h3>
+            <p>Chess scoresheet scanner → PGN — coded from scratch after Showcase.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">2025 – 2029</span>
+          <div>
+            <p class="timeline-org">Williams College</p>
+            <h3>B.A. Computer Science</h3>
+            <p>Chess Club co-president, Cultural Cooking Club president, WASO MinCo Rep, ColorStack.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">Jun – Aug 2025</span>
+          <div>
+            <p class="timeline-org">Kenya National Bureau of Statistics</p>
+            <h3>Research Assistant</h3>
+            <p>GDP &amp; CPI survey support, REDCap data validation, population sector reporting.</p>
+          </div>
+        </div>
+        <div class="timeline-item" role="listitem" data-reveal>
+          <span class="timeline-date">2023 – 2024</span>
+          <div>
+            <p class="timeline-org">Moringa School</p>
+            <h3>Software Engineering Certificate</h3>
+            <p>Accelerated full-stack foundations — the launchpad for Agent Neat and ongoing projects.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact CTA -->
+      <div class="contact-cta" data-reveal>
+        <div class="contact-cta-text">
+          <p class="eyebrow">Contact</p>
+          <h2>Let's work together.</h2>
+          <p>Whether it's an internship, a research collaboration, or just a good conversation about chess or code — I'm reachable.</p>
+        </div>
+        <div class="contact-cta-actions">
+          <a href="mailto:amm22@williams.edu" class="cta-btn cta-btn--primary">Send an email</a>
+          <a href="https://www.linkedin.com/in/alex-m-343952389/" target="_blank" rel="noreferrer" class="cta-btn cta-btn--ghost">LinkedIn</a>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <p>© Alex Mutua · Williamstown, MA</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="coding.html">Coding</a>
+          <a href="writing.html">Writing</a>
+          <a href="chess.html">Chess</a>
+          <a href="profile.html">Profile</a>
+          <a href="mailto:amm22@williams.edu">Contact</a>
+        </nav>
+      </footer>
+
+    </div>
   </div>
 
-  <section class="home-sections" aria-label="Homepage summaries">
-    <div class="section-grid">
-      <article id="education" class="info-card info-card-wide">
-        <p class="section-kicker">Education</p>
-        <h2>Computer science is the center, but the path has multiple classrooms.</h2>
-        <p>
-          The strongest through-line in the profile is a mix of formal study, accelerated software training,
-          and continuing technical coursework.
-        </p>
+  <script>
+    // Scroll-reveal
+    const reveals = document.querySelectorAll('[data-reveal]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => io.observe(el));
 
-        <div class="entry-grid">
-          <div class="mini-entry">
-            <h3>Williams College</h3>
-            <p class="entry-meta">Bachelor of Arts, Computer Science · 2025 - 2029</p>
-            <p>Activities include Chess Club and the Williams African Student Organization.</p>
-          </div>
+    // Cloud click easter egg
+    document.querySelectorAll('.cloud-nav').forEach(cloud => {
+      cloud.addEventListener('click', () => {
+        const messages = [
+          'You found a cloud. Have a great day ☁️',
+          'Keep floating. Keep building. 🚀',
+          'Every big thing started small. 💡',
+          'Chess. Code. Clouds. The good life. ♟️'
+        ];
+        const msg = messages[Math.floor(Math.random() * messages.length)];
+        const toast = document.createElement('div');
+        toast.className = 'cloud-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2800);
+      });
+    });
 
-          <div class="mini-entry">
-            <h3>Moringa School</h3>
-            <p class="entry-meta">Certificate, Computer Software Engineering · Aug 2023 - Apr 2024</p>
-            <p>Completed an accelerated software engineering course focused on practical web development foundations.</p>
-          </div>
+    // Animated stat counters
+    function animateCounter(el) {
+      const target = parseInt(el.textContent);
+      if (isNaN(target)) return;
+      let start = 0;
+      const step = Math.ceil(target / 24);
+      const timer = setInterval(() => {
+        start = Math.min(start + step, target);
+        el.textContent = start;
+        if (start >= target) clearInterval(timer);
+      }, 40);
+    }
+    const statNums = document.querySelectorAll('.stat-number');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); statObserver.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    statNums.forEach(el => statObserver.observe(el));
+  </script>
 
-          <div class="mini-entry">
-            <h3>Continuing Coursework</h3>
-            <p class="entry-meta">Ongoing learning</p>
-            <p>CS50, CodePath Technical Interview Prep, Codecademy Introduction to Java, and freeCodeCamp coursework.</p>
-          </div>
-        </div>
-      </article>
-
-      <article id="projects" class="info-card">
-        <p class="section-kicker">Projects</p>
-        <h2>Neatify turns a real annoyance into a clean automation workflow.</h2>
-        <p>
-          A lightweight Python tool that sorts a cluttered Downloads folder into categorized subfolders for images,
-          documents, videos, archives, and executables.
-        </p>
-        <ul class="info-list">
-          <li>Python</li>
-          <li>Debugging</li>
-          <li>Object-oriented programming</li>
-        </ul>
-        <a href="coding.html" class="section-link">Open Projects Page</a>
-      </article>
-
-      <article class="info-card">
-        <p class="section-kicker">Experience</p>
-        <h2>Work that crosses research, consulting, and campus operations.</h2>
-        <ul class="experience-list">
-          <li>
-            <strong>Business Consultant</strong>
-            <span>Ubuntu Advisory Group · Mar 2026 - Present</span>
-          </li>
-          <li>
-            <strong>Individual Contributor</strong>
-            <span>ColorStack · Dec 2025 - Present</span>
-          </li>
-          <li>
-            <strong>Research Assistant</strong>
-            <span>Kenya National Bureau of Statistics · Jun 2025 - Aug 2025</span>
-          </li>
-          <li>
-            <strong>Usher</strong>
-            <span>68 Center for Career Exploration · Sep 2025 - Present</span>
-          </li>
-        </ul>
-        <a href="others.html" class="section-link">Open Profile Details</a>
-      </article>
-
-      <article id="certifications" class="info-card">
-        <p class="section-kicker">Certifications</p>
-        <h2>Formal credentials paired with ongoing study.</h2>
-        <ul class="credential-list">
-          <li>
-            <strong>Moringa School</strong>
-            <span>Certificate in Computer Software Engineering</span>
-          </li>
-          <li>
-            <strong>CS50</strong>
-            <span>Introduction to Computer Science</span>
-          </li>
-          <li>
-            <strong>CodePath</strong>
-            <span>Technical Interview Prep</span>
-          </li>
-          <li>
-            <strong>Codecademy</strong>
-            <span>Introduction to Java</span>
-          </li>
-        </ul>
-      </article>
-
-      <article id="blog" class="info-card">
-        <p class="section-kicker">Blog</p>
-        <h2>The writing lane is set up for reflections on code, research, and leadership.</h2>
-        <p>
-          This section is ready for study notes, project retrospectives, research reflections, and the kind of writing
-          that connects software with the people it serves.
-        </p>
-        <ul class="info-list">
-          <li>computer science</li>
-          <li>research</li>
-          <li>student leadership</li>
-          <li>chess</li>
-        </ul>
-        <a href="writing.html" class="section-link">Open Blog Page</a>
-      </article>
-
-      <article id="chess" class="info-card">
-        <p class="section-kicker">Chess</p>
-        <h2>Not just a hobby: leadership, teaching, and study all show up here.</h2>
-        <p>
-          Alex serves as co-president of Chess Club at Williams College and previously volunteered as a chess instructor,
-          tutoring 12 students across grades 1 through 6.
-        </p>
-        <ul class="info-list">
-          <li>co-president, chess club</li>
-          <li>chess instructor volunteer</li>
-          <li>study and replay</li>
-        </ul>
-        <a href="chess.html" class="section-link">Open Chess Page</a>
-      </article>
-    </div>
-  </section>
 </body>
 </html>

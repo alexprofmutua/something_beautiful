@@ -3,133 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding | something beautiful</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+  <title>Coding · Alex Mutua</title>
+  <meta name="description" content="Open-source CLI tools and projects by Alex Mutua — colorBash, go, Agent Neat.">
   <link rel="stylesheet" href="pages.css">
-  <link rel="stylesheet" href="coding.css">
 </head>
-<body class="section-page coding-page">
+<body class="sky-background">
+
+  <nav class="global-nav" aria-label="Global navigation">
+    <a href="index.html" class="nav-logo">AM</a>
+    <div class="nav-links">
+      <a href="coding.html" class="active">Coding</a>
+      <a href="writing.html">Writing</a>
+      <a href="chess.html">Chess</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <a href="mailto:amm22@williams.edu" class="nav-cta">Get in touch</a>
+  </nav>
+
   <div class="page-shell">
-    <header class="topbar">
-      <a href="index.html" class="back-home">Back Home</a>
-      <a href="chess.html" class="mini-link">Chess</a>
-    </header>
 
     <main>
-      <section class="page-hero">
+      <section class="page-hero" data-reveal>
         <div>
-          <p class="eyebrow">Coding</p>
-          <h1 class="page-title">Practical software, automation, and data-aware problem solving.</h1>
+          <p class="eyebrow">Projects</p>
+          <h1 class="page-title">Code that solves real problems.</h1>
           <p class="page-intro">
-            The profile points to a technical lane rooted in Python, Java, JavaScript, and hands-on software learning,
-            with work that ranges from automation tooling to national-scale data support.
+            Open-source tools for the terminal and everyday workflows — small utilities built
+            because something in the daily setup was annoying, slow, or missing.
           </p>
         </div>
-
         <aside class="hero-card">
-          <p class="hero-card-label">Current Focus</p>
-          <h2>Tools that solve real problems</h2>
-          <p>
-            Building useful software, sharpening technical fundamentals, and learning in public through coursework,
-            projects, and applied work.
-          </p>
+          <p class="hero-card-label">Stack</p>
+          <h2>Python · Bash · Shell</h2>
+          <p>Plus Java, JavaScript, React, Git, and the data tooling from research and coursework at Williams.</p>
+          <p class="hero-card-label practice-links-label">Practice</p>
+          <ul class="practice-links">
+            <li><a href="https://leetcode.com/u/Alex_Prof/" target="_blank" rel="noreferrer">LeetCode · Alex_Prof</a></li>
+            <li><a href="https://tryhackme.com/" target="_blank" rel="noreferrer">TryHackMe</a></li>
+            <li><a href="https://overthewire.org/wargames/" target="_blank" rel="noreferrer">OverTheWire</a></li>
+          </ul>
         </aside>
       </section>
 
-      <section class="section-grid coding-grid">
-        <article class="card project-card full-card">
-          <div class="card-header">
-            <div>
-              <p class="card-kicker">Project 01</p>
-              <h2>Neatify</h2>
+      <div class="stats-row">
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">3</span>
+          <span class="stat-label">Open-source projects</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">2</span>
+          <span class="stat-label">On Homebrew + PyPI</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">0</span>
+          <span class="stat-label">Runtime dependencies</span>
+        </div>
+        <div class="stat-card" data-reveal>
+          <span class="stat-number">3</span>
+          <span class="stat-label">Platforms supported</span>
+        </div>
+      </div>
+
+      <section class="project-grid">
+
+        <!-- colorBash -->
+        <article class="project-card featured" data-reveal>
+          <div>
+            <p class="card-kicker">Featured · Terminal · Homebrew · macOS</p>
+            <h2>colorBash</h2>
+            <p class="project-headline">Color any exact file or folder name in <code>ls</code> — not just by type.</p>
+            <p class="project-built">Pure Bash · macOS · shell hooks · zero runtime dependencies</p>
+            <p>
+              macOS only colors directories one way. colorBash wraps interactive <code>ls</code> so you
+              can pin colors to exact names with <code>cb</code>, randomize a whole directory, and keep
+              the terminal feeling completely native.
+            </p>
+            <div class="project-install">
+              <p class="install-label">Install via Homebrew</p>
+              <pre class="code-block code-block--compact">brew install amm22-lab/colorbash/colorbash
+echo 'eval "$(colorbash init)"' >> ~/.zshrc</pre>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/amm22-lab/colorBash" target="_blank" rel="noreferrer">GitHub →</a>
+              <span class="project-links-sep">·</span>
+              <span class="project-badge">Showcase launch project</span>
             </div>
             <ul class="pill-list">
-              <li>Python</li>
-              <li>Debugging</li>
-              <li>OOP</li>
-              <li>automation</li>
+              <li>Bash</li><li>Shell hooks</li><li>Homebrew</li><li>AGPL-3.0</li>
             </ul>
           </div>
-
-          <p class="project-summary">
-            Neatify is a lightweight Python automation tool that cleans up a cluttered Downloads folder by automatically
-            sorting files into categorized subfolders such as images, documents, videos, archives, and executables.
-          </p>
-
-          <div class="project-links">
-            <a href="https://github.com/amm22-lab/neatify" target="_blank" rel="noreferrer" class="mini-link">GitHub: amm22-lab/neatify</a>
-          </div>
-
-          <div class="project-columns">
-            <div>
-              <h3>Why it matters</h3>
-              <p>
-                It shows a preference for practical software: identify a repeated annoyance, automate it, and make the machine do the organizing.
-              </p>
-              <p class="code-note">
-                The project also lines up cleanly with the technical signals on the profile: Python, debugging,
-                and object-oriented problem solving.
-              </p>
-            </div>
-
-            <pre class="code-block"><code>WATCHED_FOLDERS = {
-  "Images": {".png", ".jpg", ".jpeg", ".gif"},
-  "Documents": {".pdf", ".docx", ".txt"},
-  "Archives": {".zip", ".tar", ".gz"},
-  "Executables": {".app", ".exe", ".dmg"}
-}</code></pre>
+          <div class="project-visual">
+            <figure class="project-screenshot">
+              <img src="assets/colorbash-ls.png" alt="colorBash ls output — each folder name in a different color" width="1024" height="168" loading="lazy">
+            </figure>
+            <pre class="code-block">cb test_case red
+cb assets orange
+cb random
+ls</pre>
           </div>
         </article>
 
-        <article class="card project-card">
+        <!-- go -->
+        <article class="project-card featured" data-reveal>
           <div>
-            <p class="card-kicker">Applied Work</p>
-            <h2>Research, consulting, and contribution</h2>
+            <p class="card-kicker">CLI · Search · Bash + Python</p>
+            <h2>go</h2>
+            <p class="project-headline">Google, DuckDuckGo, or AI — straight from the terminal.</p>
+            <p class="project-built">Bash + Python 3 · Perplexity API · install via clone</p>
+            <p>
+              Search the web or ask an AI without leaving your editor. Browser search, incognito via Chrome,
+              or inline answers with <code>go -a</code> — no tab switching, no context break.
+            </p>
+            <div class="project-install">
+              <p class="install-label">Install via clone</p>
+              <pre class="code-block code-block--compact">git clone https://github.com/amm22-lab/go_search.git
+chmod +x go.sh && sudo mv go.sh /usr/local/bin/go</pre>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/amm22-lab/go_search" target="_blank" rel="noreferrer">GitHub →</a>
+            </div>
+            <ul class="pill-list">
+              <li>Bash</li><li>Python 3</li><li>CLI flags</li><li>Zero deps</li>
+            </ul>
           </div>
-
-          <ul class="project-list">
-            <li>
-              <strong>Kenya National Bureau of Statistics</strong>
-              <span>Research Assistant</span>
-              <p>Supported surveys tied to GDP and CPI computation, validated field-generated datasets, and worked with REDCap and Excel.</p>
-            </li>
-            <li>
-              <strong>Ubuntu Advisory Group</strong>
-              <span>Business Consultant</span>
-              <p>Current consulting work that extends the technical profile into strategy and applied problem solving.</p>
-            </li>
-            <li>
-              <strong>ColorStack</strong>
-              <span>Individual Contributor</span>
-              <p>Ongoing participation in a community centered on technical growth and representation in computing.</p>
-            </li>
-          </ul>
+          <div class="project-visual project-visual--solo">
+            <pre class="code-block">go how to reverse a linked list
+go -d best vim shortcuts
+go -n javascript promises
+go -a REST vs GraphQL</pre>
+          </div>
         </article>
 
-        <article class="card signal-card">
-          <p class="card-kicker">Technical Stack</p>
-          <h2>Skills already visible in the profile</h2>
+        <!-- Agent Neat -->
+        <article class="project-card featured" data-reveal>
+          <div>
+            <p class="card-kicker">Automation · Python · PyPI · Cross-platform</p>
+            <h2>Agent Neat</h2>
+            <p class="project-headline">A cross-platform agent that organizes, finds, and tracks your files.</p>
+            <p class="project-built">Python · macOS, Windows &amp; Linux · CLI, GUI &amp; desktop app · undo &amp; history</p>
+            <p>
+              Organize desktop, downloads, and documents with preview mode, natural-language commands,
+              watch mode, scheduled workflows, and full undo. The evolution of a first automation idea
+              into a complete file-management agent.
+            </p>
+            <div class="project-install">
+              <p class="install-label">Install via pip</p>
+              <pre class="code-block code-block--compact">pip install neat-agent
+neat organize downloads --preview
+neat "clean up my desktop"</pre>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/amm22-lab/agent-neat" target="_blank" rel="noreferrer">GitHub →</a>
+              <span class="project-links-sep">·</span>
+              <span class="project-badge">Showcase launch project</span>
+            </div>
+            <ul class="pill-list">
+              <li>Python</li><li>PyPI</li><li>CLI + GUI</li><li>Automation</li>
+            </ul>
+          </div>
+          <div class="project-visual project-visual--solo">
+            <pre class="code-block">neat organize desktop
+neat find budget --interactive
+neat history
+neat undo</pre>
+          </div>
+        </article>
+
+        <!-- KNBS research card -->
+        <article class="project-card" data-reveal>
+          <p class="card-kicker">Research · Data</p>
+          <h3>KNBS Data Pipeline</h3>
+          <p class="role-meta">Kenya National Bureau of Statistics · Summer 2025</p>
+          <p>
+            Validated field-generated datasets for GDP and CPI surveys using REDCap and Excel.
+            Contributed to population and social sector reporting at national scale.
+          </p>
           <ul class="pill-list">
-            <li>Python</li>
-            <li>Java</li>
-            <li>JavaScript</li>
-            <li>C#</li>
-            <li>R</li>
-            <li>Bash</li>
-            <li>React.js</li>
-            <li>Unix</li>
-            <li>Git</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>Research skills</li>
-            <li>Debugging</li>
-            <li>Ubuntu</li>
+            <li>REDCap</li><li>Excel</li><li>Data validation</li><li>Python</li>
           </ul>
         </article>
+
       </section>
+
+      <footer class="page-footer" data-reveal>
+        <p>Full record in <a href="profile.html">Profile</a></p>
+        <nav aria-label="Next section">
+          <a href="writing.html">Writing →</a>
+          <a href="chess.html">Chess →</a>
+        </nav>
+      </footer>
     </main>
   </div>
+
+  <script src="nav.js"></script>
 </body>
 </html>

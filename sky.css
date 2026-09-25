@@ -1,0 +1,193 @@
+/* Shared sky palette — tuned for white cumulus clouds */
+
+:root {
+  --sky-deep: #1e3a5f;
+  --sky-mid: #3d6a9e;
+  --sky-light: #6a9fd4;
+  --sky-haze: #9ec5e8;
+  --sky-glow: rgba(255, 228, 196, 0.14);
+  --text-light: #f8f6f2;
+  --text-soft: rgba(248, 246, 242, 0.78);
+  --text-muted: rgba(248, 246, 242, 0.58);
+  --heading: #ffffff;
+  --text-cloud: #2a3f5c;
+  --accent: #c8dff5;
+  --accent-warm: #f0dcc4;
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 16px 48px rgba(15, 35, 65, 0.35);
+  --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-body: "Jost", "Segoe UI", sans-serif;
+  --cloud-img: url("https://pngimg.com/uploads/cloud/cloud_PNG16.png");
+}
+
+@keyframes sky-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.04);
+  }
+}
+
+@keyframes cloud-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -14px;
+  }
+}
+
+@keyframes cloud-drift {
+  0%,
+  100% {
+    translate: var(--drift-x, 0) 0;
+  }
+
+  50% {
+    translate: calc(var(--drift-x, 0) + 12px) -10px;
+  }
+}
+
+@keyframes background-cloud-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(2.5vw, -1.6vh, 0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.sky-background {
+  background:
+    radial-gradient(ellipse 120% 45% at 50% 100%, var(--sky-glow), transparent 55%),
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.07), transparent 28%),
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.05), transparent 25%),
+    linear-gradient(175deg, var(--sky-deep) 0%, var(--sky-mid) 42%, var(--sky-light) 72%, var(--sky-haze) 100%);
+}
+
+body.sky-background::after {
+  content: "";
+  position: fixed;
+  inset: -12vh -18vw;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image: var(--cloud-img), var(--cloud-img), var(--cloud-img), var(--cloud-img), var(--cloud-img);
+  background-repeat: no-repeat;
+  background-size: 250px auto, 390px auto, 190px auto, 460px auto, 310px auto;
+  background-position: 7% 18%, 76% 13%, 20% 58%, 92% 66%, 52% 37%;
+  animation: background-cloud-drift 38s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.sky-background::after {
+    animation: none;
+  }
+}
+
+/* Founder ventures — each on its own line */
+.founder-lines {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 28px rgba(15, 35, 65, 0.28);
+}
+
+.founder-lines--center {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  margin-bottom: 0.15rem;
+  text-align: left;
+}
+
+.founder-lines--center .founder-line {
+  font-size: clamp(1.05rem, 2.2vw, 1.28rem);
+}
+
+.founder-lines--center .founder-line .founder-label {
+  flex: 0 1 auto;
+}
+
+.founder-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  padding: 0.45rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.founder-line + .founder-line {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 0.15rem;
+  padding-top: 0.65rem;
+}
+
+.founder-line .founder-label {
+  flex: 1 1 100%;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+
+@media (min-width: 480px) {
+  .founder-line .founder-label {
+    flex: 0 1 auto;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+.founder-line .founder-venture {
+  letter-spacing: 0.02em;
+}
+
+.founder-line .founder-note {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.95;
+}
+
+.founder-line--upcoming .founder-venture {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.founder-line--upcoming .founder-note {
+  color: var(--text-soft);
+}
