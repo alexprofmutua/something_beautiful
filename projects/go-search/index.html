@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>go_search · Alex Mutua</title>
+  <link rel="stylesheet" href="/portfolio.css?v=20261023-layout">
+  <link rel="stylesheet" href="/site-pages.css?v=20261023-layout">
+  <link rel="stylesheet" href="/projects.css?v=20261023-layout">
+  <script src="/site-theme.js" defer></script>
+</head>
+<body class="projects-page layout-project-detail">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="/">alexmutua<span>_</span></a>
+  <nav aria-label="Main navigation"><a href="/">home</a><a href="/about/">about</a><a href="/projects/" aria-current="page">projects</a><a href="/chess/">chess</a><a href="/writing/">writing</a><a href="/contact/">contact</a></nav>
+  <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme"><span aria-hidden="true">☾</span></button>
+</header>
+  <main class="project-detail wrap" id="main">
+    <a class="back-link" href="/projects/#go-search">← All projects</a>
+    <p class="section-label">CLI / search</p>
+    <h1>go_search</h1>
+    <p class="detail-summary">A search starts in the terminal.</p>
+    <p class="project-technologies">Bash · Python URL encoding · Perplexity API</p>
+    <a class="detail-github" href="https://github.com/alexprofmutua/go_search" target="_blank" rel="noreferrer">View go_search on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a>
+    <figure class="detail-screenshot"><a href="/assets/go-search-browser-demo.png" aria-label="View full-size project screenshot"><img src="/assets/go-search-browser-demo.png" alt="go_search opening a browser search for the JavaScript splice function"></a></figure>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem and motivation</h2>
+      <p>go_search provides a short shell entry point for browser searches. It keeps search flags in the terminal and supports an optional API answer without opening a search page.</p>
+    </section>
+
+    <section aria-labelledby="functionality-heading">
+      <h2 id="functionality-heading">Main functionality</h2>
+      <ul>
+        <li>Open a Google search from the terminal.</li>
+        <li>Select DuckDuckGo with -d, or Chrome incognito with -n.</li>
+        <li>Request a Perplexity answer with -a.</li>
+        <li>URL-encode query text before sending it to a browser or API.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="stack-heading">
+      <h2 id="stack-heading">Technology stack</h2>
+      <dl class="detail-stack">
+        <div><dt>Bash</dt><dd>Flag parsing, command routing, and browser launch.</dd></div>
+        <div><dt>Python</dt><dd>URL encoding and the Perplexity HTTP request.</dd></div>
+        <div><dt>Perplexity API</dt><dd>Optional answers returned to the terminal.</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="implementation-heading">
+      <h2 id="implementation-heading">Technical implementation</h2>
+      <p>The Bash command parses search flags, uses Python to URL-encode a query, and opens the selected browser search. The -d flag selects DuckDuckGo, -n uses Chrome incognito, and -a requests a Perplexity answer.</p>
+      <p>The script uses getopts for flags and Python's urllib.parse.quote for query encoding. Browser mode builds a search URL; AI mode uses urllib.request to send a JSON request and print the returned answer.</p>
+      <h3>Inside the source</h3>
+      <dl class="source-files"><div><dt><code>go</code></dt><dd>Bash command, search routing, and optional AI modes.</dd></div></dl>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Platform and API constraints</h2>
+      <p>The inspected browser-launch path uses macOS open commands and Chrome for incognito mode. That is a platform dependency, rather than a claim of support for every operating system.</p>
+      <p>AI mode requires PERPLEXITY_API_KEY in the environment. Standard Google and DuckDuckGo searches do not use that API key.</p>
+    </section>
+
+    <section aria-labelledby="run-heading"><h2 id="run-heading">Run locally</h2>
+      <pre class="detail-command"><code>git clone https://github.com/alexprofmutua/go_search.git
+cd go_search
+bash go -d &quot;chess openings&quot;</code></pre>
+      <p class="detail-note">The inspected script uses macOS browser-opening commands. Its AI mode needs Perplexity credentials; the examples here are browser searches.</p>
+    </section>
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Example searches</h2>
+      <div class="command-example"><p>Example searches</p><pre><code>./go -d &quot;chess openings&quot;
+./go -n &quot;Python documentation&quot;</code></pre></div>
+      
+    </section>
+    <section aria-labelledby="screenshots-heading">
+      <h2 id="screenshots-heading">More screenshots</h2>
+    <figure class="detail-screenshot"><a href="/assets/go-search-answer-demo.png" aria-label="View full-size screenshot: An answer returned directly in the terminal using go -a."><img src="/assets/go-search-answer-demo.png" alt="go_search answering a question about queues and stacks in the terminal" loading="lazy"></a><figcaption>An answer returned directly in the terminal using go -a.</figcaption></figure>
+    <figure class="detail-screenshot"><a href="/assets/go-search-session-demo.png" aria-label="View full-size screenshot: A longer session combining browser search and terminal answers."><img src="/assets/go-search-session-demo.png" alt="go_search session with browser search and terminal answers about data structures and APIs" loading="lazy"></a><figcaption>A longer session combining browser search and terminal answers.</figcaption></figure>
+    </section>
+  </main>
+<footer class="site-footer wrap"><a href="/">alexmutua<span>_</span></a><div><a href="/chess/">Chess</a><a href="https://github.com/alexprofmutua" target="_blank" rel="noreferrer">GitHub ↗</a><a href="/contact/">Say hello →</a></div></footer>
+</body>
+</html>

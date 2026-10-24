@@ -3,7 +3,7 @@
  * Each game needs: id, title, year, event (optional), pgn
  * Games with nezhprodigy in [White] or [Black] auto-orient from your side.
  */
-const FAVORITE_GAMES = [
+export const FAVORITE_GAMES = [
   {
     id: "nezhprodigy-ceaserwawa-2022",
     title: "nezhprodigy v ceaserwawa",

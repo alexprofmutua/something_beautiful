@@ -1,0 +1,172 @@
+/* Styles for project listings and details only. */
+.projects-page .skip-link:not(:focus) { clip-path: inset(50%); }
+
+.projects-page .page-shell {
+  margin: 30px auto 64px;
+}
+
+.projects-heading { margin-bottom: 28px; }
+.projects-heading h1 { font-size: 46px; white-space: normal; }
+
+.projects-page .stack-panel { margin-bottom: 34px; }
+.projects-page .card-kicker { margin-bottom: 10px; color: var(--green); font: 13px/1.6 var(--mono); }
+
+.projects-page .stack-row {
+  display: grid;
+  grid-template-columns: 175px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.projects-page .stack-row h3 { font: 500 12px/1.6 var(--mono); }
+
+.projects-page .stack-icon-list,
+.projects-page .stack-text-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  color: var(--body);
+  font-size: 12px;
+}
+
+.projects-page .stack-icon-list li { display: inline-flex; align-items: center; gap: 5px; }
+.projects-page .stack-icon-list img { width: 17px; height: 17px; object-fit: contain; }
+.projects-page .stack-custom-icon { color: var(--green); font-size: 11px; }
+
+.project-windows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 30px 28px;
+}
+
+.project-window {
+  min-width: 0;
+  overflow: hidden;
+  background: #f9f7f2;
+  border: 1px solid #d9dcd2;
+  border-radius: 7px;
+}
+
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 36px;
+  padding: 8px 16px;
+  background: #f0efe8;
+  border-bottom: 1px solid #dfe1d7;
+  color: var(--green);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.window-dots { display: flex; gap: 7px; flex: 0 0 auto; }
+.window-dots i { width: 8px; height: 8px; border-radius: 50%; background: #cf7c70; }
+.window-dots i:nth-child(2) { background: #d6b96e; }
+.window-dots i:nth-child(3) { background: #85a883; }
+
+.window-content {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 18px 24px;
+  align-items: center;
+  padding: 24px;
+}
+
+.window-copy,
+.window-preview { min-width: 0; }
+.window-copy { display: flex; flex-direction: column; align-items: start; gap: 12px; }
+.window-copy h2 { font-size: 39px; overflow-wrap: anywhere; }
+.window-copy .project-kind { font-size: 11px; color: var(--green); line-height: 1.7; }
+.window-content > .project-summary { grid-column: 1 / -1; color: var(--ink); font-size: 14px; line-height: 1.65; max-width: 64ch; }
+
+.window-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: start;
+}
+
+.project-technologies { color: var(--green); font-size: 12px; line-height: 1.8; }
+.project-actions { display: flex; flex-wrap: wrap; gap: 12px 22px; font-size: 12px; }
+.window-preview { align-self: center; }
+.screenshot-link { display: block; }
+.screenshot-link img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: contain; border-radius: 4px; }
+.screenshot-link:hover { opacity: .92; }
+
+.command-example > p { color: var(--green); font-size: 12px; margin-bottom: 7px; }
+.command-example pre,
+.detail-command {
+  margin: 0;
+  padding: 16px;
+  background: #101a16;
+  color: #c5e0bb;
+  border: 1px solid #28352e;
+  border-radius: 5px;
+  font: 12px/1.8 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.command-example code,
+.detail-command code { font: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.project-detail { padding-block: 30px 64px; }
+.back-link { display: inline-block; margin-bottom: 32px; font-size: 12px; }
+.project-detail h1 { font-size: 54px; white-space: normal; overflow-wrap: anywhere; }
+.project-detail > p { margin-top: 18px; max-width: var(--reading-measure); color: var(--body); }
+.project-detail > .section-label { color: var(--green); }
+.project-detail .detail-summary { font-size: 18px; color: var(--ink); }
+.project-detail .project-technologies { color: var(--green); }
+.detail-github { display: inline-block; margin-top: 18px; font-size: 13px; }
+.detail-screenshot { margin: 30px 0; }
+.detail-screenshot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; }
+.detail-screenshot figcaption { margin-top: 10px; font-size: 11px; color: var(--body); }
+.project-detail section { border-top: 1px solid var(--line); padding-block: 26px; }
+.project-detail section h2 { font-size: 30px; margin-bottom: 18px; }
+.project-detail section h3 { font-size: 15px; margin-block: 22px 10px; }
+.project-detail section p,
+.project-detail section li { font-size: 14px; color: var(--body); line-height: 1.8; max-width: 75ch; }
+.project-detail section p + p { margin-top: 14px; }
+.project-detail section ul { margin: 0; padding-left: 20px; }
+.project-detail section li + li { margin-top: 7px; }
+.detail-stack { margin: 0; }
+.detail-stack > div { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; padding-block: 8px; font-size: 13px; }
+.detail-stack dt { color: var(--green); }
+.detail-stack dd { margin: 0; color: var(--body); line-height: 1.8; }
+.source-files { margin: 18px 0 0; }
+.source-files div { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; margin-bottom: 12px; font-size: 13px; }
+.source-files dt { color: var(--green); overflow-wrap: anywhere; }
+.source-files dd { margin: 0; color: var(--body); }
+.project-detail section .detail-note { margin-top: 16px; font-size: 12px; color: var(--body); }
+
+@media (max-width: 1199px) {
+  .project-windows { grid-template-columns: 1fr; gap: 30px; }
+  .window-content { gap: 20px 32px; }
+}
+
+@media (max-width: 640px) {
+  .projects-page .page-shell { margin-top: 24px; }
+  .projects-page .stack-row { grid-template-columns: 1fr; gap: 7px; }
+  .projects-page .stack-panel { margin-bottom: 28px; }
+  .projects-heading h1 { font-size: 37px; }
+  .window-content { grid-template-columns: 1fr; padding: 20px; gap: 18px; }
+  .window-copy h2 { font-size: 35px; }
+  .window-preview { width: 100%; }
+  .window-content > .project-summary, .window-footer { grid-column: auto; }
+  .project-actions { gap: 12px 20px; }
+  .window-bar { padding-inline: 12px; font-size: 10px; gap: 10px; }
+  .window-dots { gap: 5px; }
+  .window-dots i { width: 7px; height: 7px; }
+  .project-detail { padding-top: 24px; }
+  .project-detail h1 { font-size: 41px; }
+  .source-files div, .detail-stack > div { grid-template-columns: 1fr; gap: 3px; margin-bottom: 14px; }
+}

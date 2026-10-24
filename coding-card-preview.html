@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Card Preview · Alex Mutua</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #030303;
+      overflow: hidden;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="preview-frame" src="coding.html?v=card-preview-base" title="Coding page card preview"></iframe>
+
+  <script>
+    const previewCss = `
+      .coding-page .project-grid {
+        gap: 1rem;
+      }
+
+      .coding-page .project-card {
+        display: grid;
+        grid-template-columns: minmax(0, .96fr) minmax(340px, 1.04fr);
+        gap: clamp(1rem, 2vw, 1.45rem);
+        padding: 0;
+        overflow: hidden;
+        border-radius: 1rem;
+        border-color: rgba(238, 226, 214, 0.18);
+        background:
+          linear-gradient(160deg, rgba(24, 22, 27, 0.96), rgba(7, 7, 8, 0.88)),
+          repeating-linear-gradient(180deg, rgba(255,255,255,.022) 0 1px, transparent 1px 5px);
+        box-shadow: 0 24px 64px rgba(0,0,0,.5);
+      }
+
+      .coding-page .project-card::before {
+        content: "●  ●  ●    ~/projects";
+        grid-column: 1 / -1;
+        display: block;
+        padding: .65rem 1rem;
+        border-bottom: 1px solid rgba(238, 226, 214, 0.11);
+        background: linear-gradient(90deg, rgba(233,84,32,.16), rgba(117,80,123,.12), rgba(0,0,0,.08));
+        color: rgba(240, 179, 141, .9);
+        font-family: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+        font-size: .68rem;
+        letter-spacing: .02em;
+      }
+
+      .coding-page .project-card > div:first-child {
+        padding: .2rem 0 1.35rem 1.35rem;
+      }
+
+      .coding-page .project-card > .project-visual {
+        padding: .2rem 1.35rem 1.35rem 0;
+      }
+
+      .coding-page .project-card h2 {
+        margin-top: .25rem;
+      }
+
+      .coding-page .project-card p {
+        max-width: 54ch;
+      }
+
+      .coding-page .project-install {
+        margin: .8rem 0 .55rem;
+      }
+
+      .coding-page .code-block {
+        border-radius: .65rem;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.035), transparent),
+          #020202;
+      }
+
+      .coding-page .project-screenshot {
+        border-radius: .7rem;
+        background: #020202;
+      }
+
+      .coding-page .project-thumbnail img,
+      .coding-page .project-screenshot img {
+        min-height: 180px;
+        max-height: 260px;
+        object-fit: cover;
+      }
+
+      .coding-page .pill-list {
+        gap: .35rem;
+      }
+
+      .coding-page .pill-list li {
+        padding: .24rem .62rem;
+        background: rgba(255, 248, 238, .045);
+      }
+
+      @media (max-width: 1050px) {
+        .coding-page .project-card {
+          grid-template-columns: 1fr;
+        }
+
+        .coding-page .project-card > div:first-child,
+        .coding-page .project-card > .project-visual {
+          padding: .2rem 1.1rem 1.1rem;
+        }
+      }
+    `;
+
+    const frame = document.getElementById("preview-frame");
+    frame.addEventListener("load", () => {
+      const doc = frame.contentDocument;
+      const style = doc.createElement("style");
+      style.setAttribute("data-preview", "coding-card-preview");
+      style.textContent = previewCss;
+      doc.head.appendChild(style);
+    });
+  </script>
+</body>
+</html>

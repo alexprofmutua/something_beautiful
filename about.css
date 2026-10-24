@@ -1,0 +1,72 @@
+/* About-only refinements; shared page styles remain unchanged. */
+.about-page .entry-heading--organization { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; align-items: start; }
+.about-page .organization-logo { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; }
+.about-page .organization-logo img { display: block; width: 48px; height: 48px; object-fit: contain; }
+.about-page .organization-logo[hidden] { display: none; }
+.about-page .organization-logo-unavailable { grid-template-columns: minmax(0, 1fr); }
+.about-page .entry-meta a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.about-page .entry-meta a:hover { text-decoration-color: currentColor; }
+.about-page { overflow-wrap: anywhere; }
+.about-page .page-hero { margin-bottom: 32px; }
+.about-page .profile-hero-copy { max-width: 62ch; }
+.about-page .page-intro { font-size: 16px; line-height: 1.8; }
+.about-page .page-intro em { font-size: 14px; }
+.about-page h2 { font: 32px/1.25 var(--serif); color: var(--ink); }
+.about-page .profile-quick-lines { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; padding-block: 16px; }
+.about-page .profile-quick-lines p { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 4px 12px; margin: 0; }
+.about-page .profile-quick-lines p + p { margin-top: 0; }
+.about-page .profile-quick-lines strong { white-space: nowrap; }
+.about-page .skills-section { padding-block: 26px 0; }
+.about-page .skills-section h2 { margin-bottom: 14px; }
+.about-page .skill-groups > div {
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 24px;
+  padding-block: 10px;
+}
+.about-page .skill-groups > div + div { border-top: 1px solid var(--line); }
+.about-page .about-section { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line); }
+.about-page .about-section > h2 { margin-bottom: 12px; }
+.about-page .about-entry {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr);
+  gap: 16px 40px;
+  padding-block: 20px;
+}
+.about-page .about-entry + .about-entry { border-top: 1px solid var(--line); }
+.about-page .about-entry h3, .about-page .about-cert h3 { font: 500 15px/1.6 var(--mono); color: var(--ink); margin: 0; }
+.about-page .entry-meta { color: var(--green); font-size: 12px; line-height: 1.8; margin-top: 5px; }
+.about-page .entry-copy { min-width: 0; max-width: 75ch; }
+.about-page .entry-copy > p, .about-page .about-cert > p:not(.entry-meta) { color: var(--body); font-size: 14px; line-height: 1.8; }
+.about-page .entry-copy .entry-focus { margin-top: 9px; font-size: 11px; color: var(--body); }
+.about-page .entry-focus span { color: var(--green); }
+.about-page .education-extra summary { cursor: pointer; color: var(--green); font-size: 13px; width: fit-content; }
+.about-page .education-extra p { margin-top: 10px; color: var(--body); }
+.about-page a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.about-page a:focus-visible, .about-page summary:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.about-page .cert-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; }
+.about-page .about-cert { padding-block: 20px; min-width: 0; }
+.about-page .about-cert:nth-child(n + 3) { border-top: 1px solid var(--line); }
+.about-page .about-cert > p:not(.entry-meta) { margin-top: 10px; }
+.about-page .cert-link { font-size: 12px; margin-top: 10px; }
+@media (max-width: 900px) {
+  .about-page .profile-quick-lines { grid-template-columns: 1fr; }
+}
+@media (max-width: 800px) {
+  .about-page .about-entry { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 24px; }
+  .about-page .skill-groups > div { grid-template-columns: 180px minmax(0, 1fr); gap: 20px; }
+}
+@media (max-width: 640px) {
+  .about-page .page-hero { margin-bottom: 28px; }
+  .about-page .profile-quick-lines { gap: 12px; padding-block: 14px; }
+  .about-page .profile-quick-lines p { grid-template-columns: 1fr; }
+  .about-page .skills-section { padding-top: 24px; }
+  .about-page .profile-photo-panel { width: min(200px, 100%); }
+  .about-page .page-intro { font-size: 14px; }
+  .about-page h2 { font-size: 29px; }
+  .about-page .skill-groups > div { grid-template-columns: 1fr; gap: 5px; }
+  .about-page .about-section { margin-top: 30px; padding-top: 24px; }
+  .about-page .about-entry { grid-template-columns: 1fr; gap: 10px; padding-block: 18px; }
+  .about-page .cert-grid { grid-template-columns: 1fr; }
+  .about-page .about-cert + .about-cert { border-top: 1px solid var(--line); }
+}
+

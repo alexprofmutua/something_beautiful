@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex Mutua · Portfolio</title>
+  <meta name="description" content="Portfolio of Alex Mutua — Computer Science at Williams College, ColorStack, consultant, builder, and chess leader.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dark-preview.css">
+  <link rel="stylesheet" href="enhancements.css">
+</head>
+<body class="sky-background">
+
+  <!-- ── Top navigation bar ── -->
+  <nav class="global-nav" aria-label="Global navigation">
+    <a href="index-dark-preview.html" class="nav-logo">AM</a>
+    <div class="nav-links">
+      <a href="coding-dark-preview.html">Coding</a>
+      <a href="blog-dark-preview.html">Blog</a>
+      <a href="chess-dark-preview.html">Chess</a>
+      <a href="profile-dark-preview.html">Profile</a>
+    </div>
+    <a href="mailto:amm22@williams.edu" class="nav-cta">Get in touch</a>
+  </nav>
+
+  <section class="hero-sky" id="top">
+    <p class="tagline">tap a cloud to have a better day</p>
+
+    <main class="sky">
+      <div class="sky-deco" aria-hidden="true">
+        <div class="cloud cloud-deco deco-1"></div>
+        <div class="cloud cloud-deco deco-2"></div>
+        <div class="cloud cloud-deco deco-3"></div>
+        <div class="cloud cloud-deco deco-4"></div>
+        <div class="cloud cloud-deco deco-5"></div>
+      </div>
+
+      <div class="sky-stage">
+        <a href="blog-dark-preview.html" class="cloud cloud-nav blog">
+          <span class="cloud-label">Blog</span>
+          <span class="cloud-hint">PDFs &amp; notes</span>
+        </a>
+        <a href="coding-dark-preview.html" class="cloud cloud-nav code">
+          <span class="cloud-label">Coding</span>
+          <span class="cloud-hint">Projects &amp; stack</span>
+        </a>
+
+        <div class="center">
+          <p class="center-eyebrow">Portfolio</p>
+          <h1 class="center-name">Alex Mutua</h1>
+          <p class="center-tagline">Computer Science @ Williams · ColorStack</p>
+          <div class="center-links">
+            <a href="mailto:amm22@williams.edu">Email</a>
+            <a href="https://www.linkedin.com/in/alex-m-343952389/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/alexprofmutua" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+
+        <a href="chess-dark-preview.html" class="cloud cloud-nav chess">
+          <span class="cloud-label">Chess</span>
+          <span class="cloud-hint">Club &amp; replay</span>
+        </a>
+        <a href="profile-dark-preview.html" class="cloud cloud-nav profile">
+          <span class="cloud-label">Profile</span>
+          <span class="cloud-hint">Full résumé</span>
+        </a>
+      </div>
+
+    </main>
+  </section>
+
+  <footer class="site-footer site-footer--clouds">
+    <p>© Alex Mutua · Williamstown, MA</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="coding-dark-preview.html">Coding</a>
+      <a href="blog-dark-preview.html">Blog</a>
+      <a href="chess-dark-preview.html">Chess</a>
+      <a href="profile-dark-preview.html">Profile</a>
+      <a href="mailto:amm22@williams.edu">Contact</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Cloud click easter egg
+    document.querySelectorAll('.cloud-nav').forEach(cloud => {
+      cloud.addEventListener('click', () => {
+        const messages = [
+          'You found a cloud. Have a great day ☁️',
+          'Keep floating. Keep building. 🚀',
+          'Every big thing started small. 💡',
+          'Chess. Code. Clouds. The good life. ♟️'
+        ];
+        const msg = messages[Math.floor(Math.random() * messages.length)];
+        const toast = document.createElement('div');
+        toast.className = 'cloud-toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 2800);
+      });
+    });
+  </script>
+
+</body>
+</html>

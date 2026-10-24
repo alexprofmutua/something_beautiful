@@ -1,0 +1,307 @@
+:root {
+  --sky-deep: #05070d;
+  --sky-mid: #07111f;
+  --sky-light: #10233a;
+  --text-light: #f7fbff;
+  --text-soft: #d9e6f5;
+  --text-muted: #aebed0;
+  --heading: #ffffff;
+  --accent: #c8def4;
+  --accent-warm: #f2d8b8;
+  --glass-border: rgba(232, 242, 255, 0.22);
+  --glass-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+body.sky-background {
+  background:
+    radial-gradient(circle at 72% 14%, rgba(67, 101, 145, 0.34), transparent 30rem),
+    linear-gradient(180deg, #05070d 0%, #07111f 38%, #10233a 100%);
+}
+
+.sky-background::before {
+  opacity: 0.22;
+  filter: saturate(0.75) contrast(1.15) brightness(0.88);
+}
+
+.sky-background::after {
+  background: linear-gradient(180deg, rgba(5, 7, 13, 0.18), rgba(5, 7, 13, 0.54));
+}
+
+.global-nav {
+  background: rgba(4, 9, 18, 0.88);
+  border-bottom: 1px solid rgba(232, 242, 255, 0.12);
+  backdrop-filter: blur(16px);
+}
+
+.nav-links {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(232, 242, 255, 0.16);
+}
+
+.nav-links a {
+  color: rgba(240, 247, 255, 0.76);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.nav-cta {
+  background: #f7fbff;
+  color: #07111f;
+}
+
+.page-shell {
+  color: var(--text-soft);
+}
+
+.page-title,
+.profile-page .page-title {
+  color: #ffffff;
+  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.28);
+}
+
+.page-intro,
+.profile-page .page-intro {
+  color: #e8f2ff;
+}
+
+.profile-page .page-intro em {
+  color: #f2d8b8;
+}
+
+.profile-photo-panel {
+  border-color: rgba(242, 216, 184, 0.28);
+  box-shadow: 0 28px 74px rgba(0, 0, 0, 0.48);
+}
+
+.profile-quick-lines,
+.card,
+.content-panel,
+.cert-card,
+.leadership-item {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035));
+  border-color: rgba(232, 242, 255, 0.16);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.34);
+}
+
+.eyebrow,
+.card-kicker,
+.role-meta,
+.cert-issuer {
+  color: #f2d8b8;
+}
+
+.profile-quick-lines p,
+.card p,
+.content-panel p,
+.role-desc,
+.cert-card p {
+  color: #d9e6f5;
+}
+
+.pill-list li,
+.profile-quick-lines a {
+  border-color: rgba(200, 222, 244, 0.28);
+  color: #e8f2ff;
+  background: rgba(232, 242, 255, 0.075);
+}
+
+/* Home */
+.hero-sky {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(48, 82, 126, 0.28), transparent 34rem),
+    linear-gradient(180deg, #05070d 0%, #081322 45%, #10233a 100%);
+}
+
+.tagline,
+.center-eyebrow,
+.cloud-hint,
+.section-head .eyebrow,
+.card-kicker {
+  color: #f2d8b8;
+}
+
+.center-name,
+.section-head h2,
+.highlight-card h3,
+.timeline-item h3 {
+  color: #fff;
+}
+
+.center-tagline,
+.section-head p,
+.highlight-card p,
+.timeline-item p,
+.contact-cta p {
+  color: #d9e6f5;
+}
+
+.cloud-nav {
+  color: #f8fbff;
+  filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.35));
+}
+
+.cloud-nav::before {
+  background: rgba(235, 245, 255, 0.9);
+}
+
+.cloud-label {
+  color: #07111f;
+}
+
+.highlight-card,
+.timeline-item,
+.contact-cta {
+  background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.035));
+  border-color: rgba(232, 242, 255, 0.16);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.34);
+}
+
+/* Coding */
+.stat-card,
+.stack-panel,
+.project-card {
+  background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.035));
+  border-color: rgba(232, 242, 255, 0.16);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.34);
+}
+
+.stat-number,
+.project-card h2,
+.stack-row h2,
+.project-headline {
+  color: #fff;
+}
+
+.stat-label,
+.project-built,
+.install-label {
+  color: #f2d8b8;
+}
+
+.project-card p,
+.stack-icon-list li,
+.stack-text-list li {
+  color: #d9e6f5;
+}
+
+.code-block {
+  background: rgba(2, 6, 14, 0.72);
+  border-color: rgba(232, 242, 255, 0.14);
+  color: #d4e8ff;
+}
+
+.project-screenshot,
+.project-mini-thumbs img {
+  border-color: rgba(232, 242, 255, 0.16);
+}
+
+/* Blog */
+body.sky-background.blog-night-preview {
+  background:
+    linear-gradient(90deg, rgba(3, 8, 19, 0.72), rgba(3, 8, 19, 0.28) 48%, rgba(3, 8, 19, 0.58)),
+    linear-gradient(180deg, rgba(3, 8, 19, 0.2), rgba(3, 8, 19, 0.62)),
+    url("assets/preview/starry-night-van-gogh.jpg") center 30% / cover fixed;
+}
+
+body.sky-background.blog-night-preview::before {
+  background: none;
+  opacity: 0;
+}
+
+body.sky-background.blog-night-preview::after {
+  background:
+    radial-gradient(ellipse at 36% 32%, rgba(15, 45, 92, 0.08), transparent 24rem),
+    linear-gradient(180deg, rgba(3, 8, 19, 0.06), rgba(3, 8, 19, 0.38));
+  opacity: 1;
+}
+
+.blog-night-preview .page-shell::before {
+  content: none;
+}
+
+.blog-night-preview .global-nav {
+  background: rgba(10, 24, 42, 0.82);
+}
+
+.blog-night-preview .page-shell {
+  padding-top: clamp(5.5rem, 10vh, 7rem);
+}
+
+.blog-night-preview .page-hero {
+  margin-bottom: 1.15rem;
+}
+
+.blog-night-preview .eyebrow--feature {
+  color: #f5dcc0;
+  text-shadow: 0 2px 18px rgba(0,0,0,.25);
+}
+
+.blog-library {
+  border-top-color: rgba(232, 242, 255, 0.18);
+}
+
+.blog-night-preview .blog-library {
+  max-width: 760px;
+  border-top-color: rgba(245, 220, 192, 0.24);
+}
+
+.file-tile {
+  border-bottom-color: rgba(232, 242, 255, 0.18);
+}
+
+.blog-night-preview .file-tile {
+  border-bottom-color: rgba(245, 220, 192, 0.18);
+}
+
+.file-type {
+  color: #f2d8b8;
+  border-color: rgba(242, 216, 184, 0.3);
+}
+
+.file-tile strong {
+  color: #fff;
+}
+
+/* Chess */
+.chess-quote p,
+.chess-quote cite,
+.replay-section h2,
+.game-title,
+.move-counter {
+  color: #fff;
+}
+
+.hero-card,
+.replay-section,
+.game-list-panel {
+  background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(255,255,255,.035));
+  border-color: rgba(232, 242, 255, 0.16);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.34);
+}
+
+.game-option,
+.pgn-input {
+  background: rgba(2, 6, 14, 0.48);
+  border-color: rgba(232, 242, 255, 0.14);
+  color: #e8f2ff;
+}
+
+.game-option.active,
+.game-option:hover {
+  background: rgba(232, 242, 255, 0.12);
+  border-color: rgba(242, 216, 184, 0.36);
+}
+
+/* Footer */
+.page-footer {
+  border-top-color: rgba(232, 242, 255, 0.15);
+}
+
+.page-footer p,
+.site-footer {
+  color: #c8d8ea;
+}

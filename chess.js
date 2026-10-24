@@ -1,234 +1,349 @@
-/**
- * Chess replay — favorite games list + auto-play
- * Loads after chess-libs-bootstrap (inline module in chess.html) sets window.ChessLibs.
- * Works when opening chess.html via file:// (needs internet for CDN piece assets).
- */
-(function () {
-  const ASSETS_URL = "https://cdn.jsdelivr.net/npm/cm-chessboard@8.12.11/assets/";
-  const MY_USERNAME = "nezhprodigy";
+import { parseReplay, readReplayHeaders } from './chess-replay.js?v=20261023-replay';
+import { FAVORITE_GAMES } from './chess-games.js?v=20261023-module-data';
 
-  let Chess;
-  let Chessboard;
-  let FEN;
-  let COLOR;
-  let replayBoard = null;
-  let replaySession = 0;
-  let selectedPgn = "";
+const replay = document.getElementById('replay');
+const gameList = document.getElementById('game-list');
+const moveList = document.getElementById('move-list');
+const boardElement = document.getElementById('replay-board');
+const status = document.getElementById('replay-status');
+const error = document.getElementById('replay-error');
+const title = document.getElementById('replay-game-title');
+const players = document.getElementById('replay-players');
+const information = document.getElementById('replay-information');
+const topPlayer = document.getElementById('board-player-top');
+const bottomPlayer = document.getElementById('board-player-bottom');
+const playButton = document.getElementById('replay-play');
+const speed = document.getElementById('replay-speed');
+const actions = [...replay.querySelectorAll('[data-replay-action]')];
+const gameButtons = new Map();
+const gameHeaders = new Map(FAVORITE_GAMES.map(game => [game.id, readReplayHeaders(game.pgn)]));
+const lastMoveMarker = { class: 'replay-last-move', slice: 'markerSquare' };
+let board;
+let timeline;
+let headers = {};
+let current = 0;
+let playing = false;
+let timer;
+let revision = 0;
+let boardFailure;
+let orientation = 'w';
+let flipping = false;
 
-  function boot() {
-    if (!window.ChessLibs) return;
-    ({ Chess, Chessboard, FEN, COLOR } = window.ChessLibs);
+function pause() {
+  playing = false;
+  clearTimeout(timer);
+  updateControls();
+}
 
-    initBoard();
-    initGameList();
-    document.getElementById("replay-btn")?.addEventListener("click", () => startReplay());
+function updateControls() {
+  const valid = Boolean(timeline && board && !boardFailure);
+  for (const button of actions) {
+    const action = button.dataset.replayAction;
+    button.disabled = !valid ||
+      (action === 'flip' && flipping) ||
+      (['first', 'previous'].includes(action) && current === 0) ||
+      (['next', 'last'].includes(action) && current === timeline?.moves.length);
+    if (action === 'flip') button.setAttribute('aria-pressed', String(orientation === 'b'));
   }
-
-  function whenLibsReady(fn) {
-    if (window.ChessLibs) {
-      fn();
-      return;
-    }
-    window.addEventListener("chess-libs-ready", fn, { once: true });
+  speed.disabled = !valid;
+  playButton.firstElementChild.className = 'replay-icon icon-' + (playing ? 'pause' : 'play');
+  const label = playing ? 'Pause replay' : 'Play replay';
+  playButton.setAttribute('aria-label', label);
+  playButton.title = label;
+  playButton.setAttribute('aria-pressed', String(playing));
+  for (const button of moveList.querySelectorAll('button')) {
+    if (Number(button.dataset.ply) === current) button.setAttribute('aria-current', 'step');
+    else button.removeAttribute('aria-current');
   }
+  if (valid) {
+    const turn = timeline.positions[current].split(' ')[1] === 'w' ? 'White' : 'Black';
+    status.textContent = (current === 0 ? 'Starting position' :
+      `Position ${current} of ${timeline.moves.length} · ${timeline.moves[current - 1].san}`) +
+      ` · ${turn} to move${playing ? ' · Playing' : ''}`;
+  }
+}
 
-  document.addEventListener("DOMContentLoaded", () => {
-    whenLibsReady(boot);
+function updatePlayerLabels() {
+  const white = headers.White ? 'White · ' + headers.White : 'White';
+  const black = headers.Black ? 'Black · ' + headers.Black : 'Black';
+  topPlayer.textContent = orientation === 'w' ? black : white;
+  bottomPlayer.textContent = orientation === 'w' ? white : black;
+  topPlayer.dataset.color = orientation === 'w' ? 'b' : 'w';
+  bottomPlayer.dataset.color = orientation;
+}
+
+function fail(message) {
+  timeline = undefined;
+  pause();
+  error.textContent = message;
+  error.hidden = false;
+  boardElement.hidden = true;
+  topPlayer.hidden = true;
+  bottomPlayer.hidden = true;
+  moveList.replaceChildren();
+  const note = document.createElement('p');
+  note.className = 'moves-unavailable';
+  note.textContent = 'Move history is unavailable for this recording.';
+  moveList.append(note);
+  status.textContent = '';
+  delete boardElement.dataset.fen;
+  delete boardElement.dataset.lastMove;
+}
+
+function keepCurrentMoveVisible() {
+  const active = moveList.querySelector('[aria-current]');
+  if (!active || moveList.clientHeight === 0) return;
+  const item = active.getBoundingClientRect();
+  const viewport = moveList.getBoundingClientRect();
+  if (item.top < viewport.top || item.bottom > viewport.bottom) {
+    moveList.scrollTop += item.top - viewport.top - (viewport.height - item.height) / 2;
+  }
+}
+
+function setPosition(index) {
+  if (!timeline || !board || boardFailure) return;
+  current = Math.max(0, Math.min(timeline.moves.length, index));
+  const fen = timeline.positions[current];
+  const renderRevision = ++revision;
+  // No queued animation: rapid stepping and game switching stay deterministic.
+  Promise.resolve(board.setPosition(fen, false)).catch(cause => {
+    if (revision === renderRevision) fail(`Could not display this position: ${cause.message}`);
   });
+  board.removeMarkers(lastMoveMarker);
+  const move = timeline.moves[current - 1];
+  if (move) {
+    board.addMarker(lastMoveMarker, move.from);
+    board.addMarker(lastMoveMarker, move.to);
+    boardElement.dataset.lastMove = move.from + '-' + move.to;
+  } else delete boardElement.dataset.lastMove;
+  boardElement.dataset.fen = fen;
+  boardElement.setAttribute('aria-label', move ?
+    `Recorded game, position after ${move.san}, last move ${move.from} to ${move.to}` :
+    'Recorded game, starting position');
+  updateControls();
+  keepCurrentMoveVisible();
+}
 
-  function initBoard() {
-    const boardEl = document.getElementById("replay-board");
-    if (!boardEl || !Chessboard) return;
+function schedule() {
+  clearTimeout(timer);
+  if (!playing || !timeline) return;
+  timer = setTimeout(() => {
+    if (!playing || !timeline) return;
+    setPosition(current + 1);
+    if (current === timeline.moves.length) pause();
+    else schedule();
+  }, 1000 / Number(speed.value));
+}
 
-    replayBoard = new Chessboard(boardEl, {
-      position: FEN.start,
-      assetsUrl: ASSETS_URL,
-      style: {
-        showCoordinates: true,
-        animationDuration: 300,
-      },
-    });
+function play() {
+  if (!timeline || !board || boardFailure) return;
+  if (current === timeline.moves.length) setPosition(0);
+  playing = true;
+  updateControls();
+  schedule();
+}
+
+function renderMoves() {
+  moveList.replaceChildren();
+  const table = document.createElement('table');
+  table.className = 'move-table';
+  table.setAttribute('aria-label', 'Recorded moves by White and Black');
+  const head = table.createTHead().insertRow();
+  for (const label of ['Move', 'White', 'Black']) {
+    const th = document.createElement('th');
+    th.scope = 'col';
+    th.textContent = label;
+    head.append(th);
   }
-
-  function initGameList() {
-    const listEl = document.getElementById("game-list");
-    if (!listEl || typeof FAVORITE_GAMES === "undefined") return;
-
-    listEl.innerHTML = "";
-
-    FAVORITE_GAMES.forEach((game) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "game-list-item";
-      btn.dataset.gameId = game.id;
-      btn.innerHTML = `
-      <span class="game-list-title">${game.title}</span>
-      <span class="game-list-year">${game.year}</span>
-      ${game.event ? `<span class="game-list-event">${game.event}</span>` : ""}
-    `;
-      btn.addEventListener("click", () => selectGame(game.id));
-      listEl.appendChild(btn);
-    });
-
-    if (FAVORITE_GAMES.length > 0) {
-      requestAnimationFrame(() => selectGame(FAVORITE_GAMES[0].id));
+  const body = table.createTBody();
+  let row;
+  let number;
+  for (const [index, move] of timeline.moves.entries()) {
+    if (number !== move.number) {
+      number = move.number;
+      row = body.insertRow();
+      const heading = document.createElement('th');
+      heading.scope = 'row';
+      heading.textContent = number + '.';
+      row.append(heading);
+      row.insertCell();
+      row.insertCell();
     }
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.ply = String(index + 1);
+    button.textContent = move.san;
+    button.setAttribute('aria-label', `Go to move ${move.number}${move.color === 'w' ? '.' : '...'} ${move.san}, ${move.color === 'w' ? 'White' : 'Black'}`);
+    button.addEventListener('click', () => { pause(); setPosition(index + 1); });
+    row.cells[move.color === 'w' ? 1 : 2].append(button);
   }
+  moveList.append(table);
+}
 
-  function selectGame(gameId) {
-    const game = FAVORITE_GAMES.find((g) => g.id === gameId);
-    if (!game) return;
+function recorded(value) {
+  return value && !/^[?.]+$/.test(value) ? value : '';
+}
 
-    document.querySelectorAll(".game-list-item").forEach((el) => {
-      el.classList.toggle("is-active", el.dataset.gameId === gameId);
-    });
-
-    const pgnEl = document.getElementById("pgn1");
-    const titleEl = document.getElementById("replay-game-title");
-    selectedPgn = game.pgn;
-    if (pgnEl) pgnEl.value = game.pgn;
-    if (titleEl) titleEl.textContent = `${game.title} · ${game.year}`;
-
-    startReplay(game.pgn);
+function renderInformation(game) {
+  title.textContent = game.title;
+  players.textContent = [
+    headers.White ? 'White: ' + headers.White : '',
+    headers.Black ? 'Black: ' + headers.Black : '',
+  ].filter(Boolean).join(' · ');
+  information.replaceChildren();
+  for (const [label, value] of [
+    ['Date', recorded(headers.Date) || game.year],
+    ['Event', recorded(headers.Event) || game.event],
+    ['Location', recorded(headers.Site) && !/^https?:/.test(headers.Site) ? headers.Site : ''],
+    ['Opening', recorded(headers.Opening)],
+    ['ECO', recorded(headers.ECO)],
+    ['Result', recorded(headers.Result)],
+  ]) {
+    if (!value) continue;
+    const group = document.createElement('div');
+    const term = document.createElement('dt');
+    term.textContent = label;
+    const detail = document.createElement('dd');
+    detail.textContent = value;
+    group.append(term, detail);
+    information.append(group);
   }
-
-  function getOrientationForPgn(pgnText) {
-    const white = pgnText.match(/\[White\s+"([^"]+)"\]/i)?.[1]?.toLowerCase();
-    const black = pgnText.match(/\[Black\s+"([^"]+)"\]/i)?.[1]?.toLowerCase();
-    const me = MY_USERNAME.toLowerCase();
-
-    if (black === me) return COLOR.black;
-    if (white === me) return COLOR.white;
-    return COLOR.white;
+  if (/^https?:\/\//.test(headers.Site || '')) {
+    const group = document.createElement('div');
+    const term = document.createElement('dt');
+    term.textContent = 'Source';
+    const detail = document.createElement('dd');
+    const link = document.createElement('a');
+    link.href = headers.Site;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Original game ↗';
+    detail.append(link);
+    group.append(term, detail);
+    information.append(group);
   }
+}
 
-  function extractMoves(pgnText) {
-    const movetext = pgnText
-      .replace(/\{[\s\S]*?\}/g, " ")
-      .replace(/\[[^\]]*\]/g, " ")
-      .replace(/\([^)]*\)/g, " ")
-      .replace(/\d+\.\.\./g, " ")
-      .replace(/\d+\./g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .replace(/\s(1-0|0-1|1\/2-1\/2|\*)\s*$/i, "");
+function selectGame(game) {
+  pause();
+  revision += 1;
+  timeline = undefined;
+  current = 0;
+  headers = gameHeaders.get(game.id);
+  for (const [id, button] of gameButtons) {
+    button.classList.toggle('is-active', id === game.id);
+    button.setAttribute('aria-pressed', String(id === game.id));
+  }
+  renderInformation(game);
+  error.hidden = true;
+  try {
+    if (boardFailure) throw boardFailure;
+    timeline = parseReplay(game.pgn);
+    if (!board) throw new Error('The chessboard is still loading. Please try again.');
+    boardElement.hidden = false;
+    topPlayer.hidden = false;
+    bottomPlayer.hidden = false;
+    updatePlayerLabels();
+    renderMoves();
+    moveList.scrollTop = 0;
+    setPosition(0);
+  } catch (cause) {
+    fail(`This recorded game cannot be replayed. ${cause.message}`);
+  }
+}
 
-    const tokens = movetext.split(" ").filter(Boolean);
-    const game = new Chess();
-    const moves = [];
-
-    for (const token of tokens) {
-      if (/^(1-0|0-1|1\/2-1\/2|\*)$/i.test(token)) break;
-
-      const san = token.replace(/\$\d+/g, "").replace(/[?!]+/g, "").replace(/[+#!]+$/g, "");
-      let played = game.move(san);
-      if (!played) played = game.move(token);
-      if (!played) return null;
-
-      moves.push({
-        from: played.from,
-        to: played.to,
-        promotion: played.promotion,
-        san: played.san,
-      });
+for (const [label, personal] of [['My games', true], ['Historical games', false]]) {
+  const games = FAVORITE_GAMES.filter(game => {
+    const info = gameHeaders.get(game.id);
+    return [info.White, info.Black].some(player => player?.toLowerCase() === 'nezhprodigy') === personal;
+  });
+  if (!games.length) continue;
+  const group = document.createElement('section');
+  group.className = 'game-group';
+  const heading = document.createElement('h4');
+  heading.textContent = label + ' · ' + games.length;
+  group.append(heading);
+  for (const game of games) {
+    const info = gameHeaders.get(game.id);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'game-list-item';
+    button.dataset.gameId = game.id;
+    button.setAttribute('aria-pressed', 'false');
+    for (const [className, text] of [
+      ['game-list-title', info.White && info.Black ? info.White + ' v ' + info.Black : game.title],
+      ['game-list-event', [game.year, recorded(info.Opening) ? recorded(info.Event) || game.event : game.event || recorded(info.Event)].filter(Boolean).join(' · ')],
+      ['game-list-opening', recorded(info.Opening)],
+    ]) {
+      if (!text) continue;
+      const span = document.createElement('span');
+      span.className = className;
+      span.textContent = text;
+      button.append(span);
     }
-
-    return moves.length > 0 ? moves : null;
+    button.addEventListener('click', () => selectGame(game));
+    gameButtons.set(game.id, button);
+    group.append(button);
   }
+  gameList.append(group);
+}
 
-  function getMovesFromPgn(pgnText) {
-    const text = pgnText.trim();
-    const game = new Chess();
-
-    try {
-      game.loadPgn(text, { strict: false });
-      const history = game.history({ verbose: true });
-      if (history.length > 0) {
-        return history.map((m) => ({
-          from: m.from,
-          to: m.to,
-          promotion: m.promotion,
-          san: m.san,
-        }));
-      }
-    } catch (_) {
-      /* fall through */
-    }
-
-    return extractMoves(text);
+async function flipBoard() {
+  if (!board || flipping || !timeline) return;
+  pause();
+  flipping = true;
+  updateControls();
+  const next = orientation === 'w' ? 'b' : 'w';
+  try {
+    await board.setOrientation(next, false);
+    orientation = next;
+    boardElement.dataset.orientation = next;
+    updatePlayerLabels();
+  } catch (cause) {
+    fail(`Could not flip this board: ${cause.message}`);
+  } finally {
+    flipping = false;
+    updateControls();
   }
+}
 
-  function cancelReplay() {
-    replaySession += 1;
-  }
+for (const button of actions) button.addEventListener('click', () => {
+  const action = button.dataset.replayAction;
+  if (action === 'play') { if (playing) pause(); else play(); return; }
+  if (action === 'flip') { flipBoard(); return; }
+  pause();
+  if (action === 'restart') { setPosition(0); play(); }
+  if (action === 'first') setPosition(0);
+  if (action === 'previous') setPosition(current - 1);
+  if (action === 'next') setPosition(current + 1);
+  if (action === 'last') setPosition(timeline.moves.length);
+});
+replay.addEventListener('keydown', event => {
+  if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || event.altKey || event.ctrlKey || event.metaKey ||
+      event.shiftKey || event.target.closest('select, input, textarea, summary, [contenteditable]') || !timeline) return;
+  event.preventDefault();
+  pause();
+  setPosition(current + (event.key === 'ArrowRight' ? 1 : -1));
+});
+speed.addEventListener('change', schedule);
+document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+window.addEventListener('pagehide', pause);
+updateControls();
 
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  async function runReplay(moves, statusEl, orientation = COLOR.white) {
-    const session = replaySession;
-
-    if (!replayBoard) initBoard();
-    if (!replayBoard) {
-      if (statusEl) statusEl.textContent = "Board failed to load. Refresh the page.";
-      return;
-    }
-
-    const replayGame = new Chess();
-    await replayBoard.setOrientation(orientation, false);
-    await replayBoard.setPosition(FEN.start, false);
-    if (session !== replaySession) return;
-
-    if (statusEl) statusEl.textContent = "Replaying…";
-
-    for (let i = 0; i < moves.length; i += 1) {
-      if (session !== replaySession) return;
-
-      const moveData = moves[i];
-      const payload = { from: moveData.from, to: moveData.to };
-      if (moveData.promotion) payload.promotion = moveData.promotion;
-
-      const played = replayGame.move(payload);
-      if (!played) {
-        if (statusEl) {
-          statusEl.textContent = `Stopped at move ${i + 1} — could not play ${moveData.san}.`;
-        }
-        return;
-      }
-
-      await replayBoard.setPosition(replayGame.fen(), true);
-      if (session !== replaySession) return;
-
-      if (statusEl) statusEl.textContent = `Move ${i + 1} of ${moves.length}`;
-      await sleep(650);
-    }
-
-    if (session !== replaySession) return;
-    if (statusEl) statusEl.textContent = `Replay complete — ${moves.length} moves.`;
-  }
-
-  function startReplay(pgnOverride) {
-    const pgnEl = document.getElementById("pgn1");
-    const statusEl = document.getElementById("replay-status");
-
-    const pgnText = (pgnOverride ?? selectedPgn ?? pgnEl?.value ?? "").trim();
-    if (!pgnText) return;
-
-    cancelReplay();
-
-    const moves = getMovesFromPgn(pgnText);
-    if (!moves || moves.length === 0) {
-      if (statusEl) {
-        statusEl.textContent = moves
-          ? "No moves found in that PGN."
-          : "Could not read that PGN. Check the format and try again.";
-      }
-      return;
-    }
-
-    void runReplay(moves, statusEl, getOrientationForPgn(pgnText)).catch((err) => {
-      if (statusEl) statusEl.textContent = `Replay error: ${err.message}`;
-    });
-  }
-})();
+try {
+  const { Chessboard } = await import('https://cdn.jsdelivr.net/npm/cm-chessboard@8.12.11/src/Chessboard.js');
+  const { Markers } = await import('https://cdn.jsdelivr.net/npm/cm-chessboard@8.12.11/src/extensions/markers/Markers.js');
+  board = new Chessboard(boardElement, {
+    assetsUrl: 'https://cdn.jsdelivr.net/npm/cm-chessboard@8.12.11/assets/',
+    orientation: 'w',
+    style: { cssClass: 'portfolio-board', showCoordinates: true, animationDuration: 0 },
+    extensions: [{ class: Markers, props: { autoMarkers: null } }],
+  });
+  boardElement.dataset.orientation = 'w';
+  const first = FAVORITE_GAMES[0];
+  if (first) selectGame(first);
+  else fail('No recorded games are available yet.');
+} catch (cause) {
+  boardFailure = new Error('The chessboard could not load. Check your connection and refresh.');
+  fail(boardFailure.message);
+}

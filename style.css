@@ -27,7 +27,7 @@ body.sky-background {
 /* ── Hero sky ── */
 .hero-sky {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 5.5rem);
   isolation: isolate;
 }
 
@@ -339,7 +339,7 @@ body.sky-background {
 }
 
 /* Compass grid slots */
-.writing {
+.blog {
   grid-column: 1;
   grid-row: 1;
   justify-self: end;
@@ -592,9 +592,27 @@ body.sky-background {
   gap: 1rem;
 }
 
+.site-footer--clouds {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, calc(100% - clamp(2rem, 6vw, 4rem)));
+  margin: -1rem auto 0;
+  padding: 1.05rem clamp(1rem, 2vw, 1.35rem) 1.15rem;
+  border: 1px solid rgba(22, 56, 91, 0.2);
+  border-radius: 999px;
+  background: rgba(19, 51, 86, 0.24);
+  box-shadow: 0 12px 34px rgba(20, 50, 82, 0.12);
+  backdrop-filter: blur(10px);
+}
+
 .site-footer p {
   font-size: 0.88rem;
   color: var(--text-soft);
+}
+
+.site-footer--clouds p {
+  color: rgba(248, 246, 242, 0.94);
+  text-shadow: 0 1px 8px rgba(22, 52, 84, 0.4);
 }
 
 .footer-links {
@@ -609,6 +627,11 @@ body.sky-background {
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.04em;
+}
+
+.site-footer--clouds .footer-links a {
+  color: rgba(248, 246, 242, 0.9);
+  text-shadow: 0 1px 8px rgba(22, 52, 84, 0.35);
 }
 
 .footer-links a:hover {
@@ -654,7 +677,7 @@ body.sky-background {
     margin-bottom: 0.5rem;
   }
 
-  .writing  { grid-column: 1; grid-row: 2; align-self: center; }
+  .blog     { grid-column: 1; grid-row: 2; align-self: center; }
   .code     { grid-column: 2; grid-row: 2; align-self: center; }
   .chess    { grid-column: 1; grid-row: 3; align-self: center; }
   .profile  { grid-column: 2; grid-row: 3; align-self: center; }

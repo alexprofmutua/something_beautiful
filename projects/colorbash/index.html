@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>colorBash · Alex Mutua</title>
+  <link rel="stylesheet" href="/portfolio.css?v=20261023-layout">
+  <link rel="stylesheet" href="/site-pages.css?v=20261023-layout">
+  <link rel="stylesheet" href="/projects.css?v=20261023-layout">
+  <script src="/site-theme.js" defer></script>
+</head>
+<body class="projects-page layout-project-detail">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="/">alexmutua<span>_</span></a>
+  <nav aria-label="Main navigation"><a href="/">home</a><a href="/about/">about</a><a href="/projects/" aria-current="page">projects</a><a href="/chess/">chess</a><a href="/writing/">writing</a><a href="/contact/">contact</a></nav>
+  <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme"><span aria-hidden="true">☾</span></button>
+</header>
+  <main class="project-detail wrap" id="main">
+    <a class="back-link" href="/projects/#colorbash">← All projects</a>
+    <p class="section-label">CLI / developer tool</p>
+    <h1>colorBash</h1>
+    <p class="detail-summary">Color exact file and folder names in ls.</p>
+    <p class="project-technologies">Bash · Shell integration · Homebrew</p>
+    <a class="detail-github" href="https://github.com/alexprofmutua/colorBash" target="_blank" rel="noreferrer">View colorBash on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a>
+    <figure class="detail-screenshot"><a href="/assets/colorbash-random-demo.png" aria-label="View full-size project screenshot"><img src="/assets/colorbash-random-demo.png" alt="colorBash cb random command and the resulting colored Downloads listing"></a></figure>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem and motivation</h2>
+      <p>Native ls colors are usually tied to file types. colorBash adds rules for exact names, so one familiar folder can keep a distinct color in a busy directory listing.</p>
+    </section>
+
+    <section aria-labelledby="functionality-heading">
+      <h2 id="functionality-heading">Main functionality</h2>
+      <ul>
+        <li>Save an exact-name rule with cb &lt;name&gt; &lt;color&gt;.</li>
+        <li>Assign directory-scoped random colors to visible entries with cb random.</li>
+        <li>Wrap supported interactive ls forms while preserving the native command for other modes.</li>
+        <li>List, remove, or clear saved color rules.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="stack-heading">
+      <h2 id="stack-heading">Technology stack</h2>
+      <dl class="detail-stack">
+        <div><dt>Bash</dt><dd>The command implementation and installer.</dd></div>
+        <div><dt>Shell integration</dt><dd>Interactive ls wrapping and saved exact-name rules.</dd></div>
+        <div><dt>Homebrew</dt><dd>A formula for distributing and installing the tool.</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="implementation-heading">
+      <h2 id="implementation-heading">Technical implementation</h2>
+      <p>colorBash stores exact-name color rules and applies them to interactive ls output. It also supports directory-scoped random rules. The shell integration is the interesting part: it changes the everyday listing workflow while keeping the system command available.</p>
+      <p>Rules are stored in ~/.config/colorbash/rules.tsv. Random rules are scoped to the current directory. The wrapper handles a limited set of interactive ls forms and passes unsupported modes through to the system command.</p>
+      <h3>Inside the source</h3>
+      <dl class="source-files"><div><dt><code>colorbash</code></dt><dd>Main command and rule handling.</dd></div><div><dt><code>colorbash-init.sh</code></dt><dd>Shell integration.</dd></div><div><dt><code>install.sh</code></dt><dd>Local installation and shell configuration.</dd></div></dl>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Shell compatibility</h2>
+      <p>The documented scope includes ls, ls -a, ls -A, and ls -1. Keeping other forms on native ls avoids trying to reproduce every system listing option.</p>
+      <p>CROSS-PLATFORM.md describes BSD/GNU ls handling. macOS and Linux use a Bash-compatible shell; Windows needs Git Bash or WSL rather than native PowerShell or cmd.</p>
+    </section>
+
+    <section aria-labelledby="run-heading"><h2 id="run-heading">Run locally</h2>
+      <pre class="detail-command"><code>git clone https://github.com/alexprofmutua/colorBash.git
+cd colorBash
+./install.sh --configure-shell</code></pre>
+      
+    </section>
+    <section aria-labelledby="examples-heading">
+      <h2 id="examples-heading">Example commands</h2>
+      <div class="command-example"><p>Example commands</p><pre><code>cb assets orange
+cb random
+ls</code></pre></div>
+      
+    </section>
+    <section aria-labelledby="screenshots-heading">
+      <h2 id="screenshots-heading">More screenshots</h2>
+    <figure class="detail-screenshot"><a href="/assets/colorbash-custom-colors-demo.png" aria-label="View full-size screenshot: Assigning persistent colors to individual folder names."><img src="/assets/colorbash-custom-colors-demo.png" alt="colorBash assigning green to Images and cyan to Audio in the terminal" loading="lazy"></a><figcaption>Assigning persistent colors to individual folder names.</figcaption></figure>
+    </section>
+  </main>
+<footer class="site-footer wrap"><a href="/">alexmutua<span>_</span></a><div><a href="/chess/">Chess</a><a href="https://github.com/alexprofmutua" target="_blank" rel="noreferrer">GitHub ↗</a><a href="/contact/">Say hello →</a></div></footer>
+</body>
+</html>

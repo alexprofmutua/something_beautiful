@@ -1,0 +1,34 @@
+/* Contact-only refinements, using the shared light and dark palette. */
+.contact-page.page-main { min-height: 0; padding-block: 32px 44px; }
+.contact-page .page-lead { max-width: 72ch; font-size: 15px; line-height: 1.85; }
+.contact-page .contact-links { max-width: none; margin-top: 30px; }
+.contact-page .contact-links > div { padding-block: 18px; }
+.contact-page .contact-links > .contact-email { padding-block: 8px 16px; }
+.contact-page .contact-links dt { padding-top: 2px; }
+.contact-page .email-address { font-size: 16px; overflow-wrap: anywhere; }
+.contact-page .email-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 16px; }
+.contact-page .send-email, .contact-page .copy-email { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 10px 15px; border: 1px solid var(--green); border-radius: 4px; font: 12px/1.6 var(--mono); }
+.contact-page .send-email { color: var(--paper); background: var(--green); }
+.contact-page .send-email:hover { text-decoration: none; opacity: .9; }
+.contact-page .copy-email { background: transparent; border-color: var(--line); color: var(--ink); }
+.contact-page .copy-email[hidden] { display: none; }
+.contact-page .copy-email:hover:not(:disabled) { background: var(--tag); border-color: var(--green); }
+.contact-page .copy-email:disabled { cursor: wait; opacity: .6; }
+.contact-page .copy-email-status { min-height: 22px; margin-top: 8px; color: var(--green); font-size: 11px; line-height: 1.8; }
+.contact-page .profile-name { display: inline-flex; align-items: center; gap: 10px; }
+.contact-page .contact-icon { display: inline-block; flex: 0 0 16px; width: 16px; height: 16px; background: currentColor; mask: var(--contact-icon) center / contain no-repeat; -webkit-mask: var(--contact-icon) center / contain no-repeat; }
+.contact-page .icon-mail { --contact-icon: url('/contact/icons/mail.svg'); }
+.contact-page .icon-copy { --contact-icon: url('/contact/icons/copy.svg'); }
+.contact-page .copy-email[data-copied='true'] .icon-copy { --contact-icon: url('/contact/icons/check.svg'); }
+.contact-page .icon-github { --contact-icon: url('/contact/icons/github.svg'); }
+.contact-page .icon-linkedin { --contact-icon: url('/contact/icons/linkedin.svg'); }
+.contact-page .icon-leetcode { --contact-icon: url('/contact/icons/leetcode.svg'); }
+.contact-page a:focus-visible, .contact-page button:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.contact-page .contact-links dd > a:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 640px) {
+  .contact-page.page-main { padding-block: 28px 36px; }
+  .contact-page .page-lead { font-size: 14px; }
+  .contact-page .contact-links > div { grid-template-columns: 1fr; gap: 8px; }
+  .contact-page .contact-links { margin-top: 26px; }
+}
+

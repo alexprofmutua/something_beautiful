@@ -1,0 +1,31 @@
+<!-- ARCHIVED — paste this block into chess.html to restore interactive play -->
+
+<section class="card full-card chess-play-panel">
+  <p class="card-kicker">Play</p>
+  <h2>Interactive board — drag pieces to move</h2>
+  <p class="chess-play-note">Legal moves only. Play both sides on one board, or grab a friend and take turns.</p>
+
+  <div class="chess-layout">
+    <div id="play-board" class="board board-play" aria-label="Interactive chess board"></div>
+
+    <aside class="chess-sidebar">
+      <p id="chess-status" class="chess-status" aria-live="polite">White to move</p>
+
+      <div class="chess-sidebar-block">
+        <p class="chess-sidebar-label">Move list</p>
+        <div id="move-list" class="move-list">
+          <p class="move-list-empty">No moves yet. Drag a piece to start.</p>
+        </div>
+      </div>
+
+      <div class="chess-controls">
+        <button type="button" id="reset-btn" class="play-btn">New game</button>
+        <button type="button" id="flip-btn" class="play-btn play-btn-secondary">Flip board</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- Also add to <head>: -->
+<!-- <link rel="stylesheet" href="archive/chess-interactive-play.css"> -->
+<!-- And load archive/chess-interactive-play.js after cm-chessboard -->
