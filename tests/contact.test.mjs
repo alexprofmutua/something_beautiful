@@ -62,9 +62,10 @@ test('Contact preserves the actual email and profile destinations without a form
   assert(html.includes("I'm always interested in connecting with people working on interesting software, exchanging ideas, and exploring new opportunities."));
   assert.match(html, /href="mailto:amm22@williams.edu"/);
   assert.match(html, /id="copy-email-status"[^>]*role="status"[^>]*aria-live="polite"/);
-  for (const href of ['https://github.com/alexprofmutua', 'https://www.linkedin.com/in/alex-m-343952389/', 'https://leetcode.com/u/Alex_Prof/']) {
+  for (const href of ['https://github.com/alexprofmutua', 'https://www.linkedin.com/in/alex-m-343952389/']) {
     assert(html.includes('href="' + href + '" target="_blank" rel="noopener noreferrer"'));
   }
   assert(!html.includes('<form'));
+  assert.doesNotMatch(html, /leetcode/i);
 });
 

@@ -1,5 +1,18 @@
 import { Chess } from './lib/chess.js';
 
+const personalUsernames = new Set(['nezhprodigy', 'alexalginique']);
+
+export function isPersonalPlayer(name) {
+  return typeof name === 'string' && personalUsernames.has(name.trim().toLowerCase());
+}
+
+export function displayPlayerName(name) {
+  if (isPersonalPlayer(name) && name.trim().toLowerCase() !== 'nezhprodigy') {
+    return `nezhprodigy (formerly ${name})`;
+  }
+  return name;
+}
+
 export function readReplayHeaders(pgn) {
   const game = new Chess();
   try {
@@ -28,6 +41,6 @@ export function parseReplay(pgn) {
       number: Number(move.before.split(' ')[5]),
     })),
     positions: [moves[0].before, ...moves.map(move => move.after)],
-    orientation: headers.Black?.toLowerCase() === 'nezhprodigy' ? 'b' : 'w',
+    orientation: isPersonalPlayer(headers.Black) ? 'b' : 'w',
   };
 }

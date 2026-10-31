@@ -3,8 +3,8 @@ const input = document.querySelector('#terminal-input');
 const history = document.querySelector('#terminal-history');
 const responses = {
   whoami: 'Alex Mutua\nComputer science student at Williams.',
-  ls: 'projects/   writing/   about.txt',
-  'cat about.txt': 'I build useful software and write about what I learn.\nWonder first, then proof, then something built.',
+  ls: 'about.txt   projects/   chess/\nwriting/   contact.txt   CV.pdf',
+  'cat about.txt': 'I enjoy learning and turning\nrandom ideas into working projects.',
   'ls projects': 'neatify/   colorBash/   where-is-this-williams/   go_search/',
   pwd: '/home/alex/portfolio',
   help: 'whoami · ls · ls projects · cat about.txt · pwd · clear',

@@ -29,7 +29,8 @@ test('empty writing archive preserves all real planned topics and shows no fake 
   const result = await buildWriting(space);
   assert.deepEqual(result, { articles: 0, featured: 0, filters: false });
   const html = await readFile(join(space.outputRoot, 'index.html'), 'utf8');
-  assert.match(html, /Thoughts, notes, and ideas\./);
+  assert.doesNotMatch(html, /Thoughts, notes, and ideas\./);
+  assert.match(html, /class="section-label">Writing<\/p>/);
   assert.match(html, /Nothing published yet/);
   assert.match(html, /Currently exploring/);
   for (const item of source.exploring) assert(html.includes(item.title));

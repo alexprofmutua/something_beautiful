@@ -1,4 +1,4 @@
-import { parseReplay, readReplayHeaders } from './chess-replay.js?v=20261023-replay';
+import { parseReplay, readReplayHeaders, isPersonalPlayer, displayPlayerName } from './chess-replay.js?v=20261023-replay';
 import { FAVORITE_GAMES } from './chess-games.js?v=20261023-module-data';
 
 const replay = document.getElementById('replay');
@@ -64,8 +64,8 @@ function updateControls() {
 }
 
 function updatePlayerLabels() {
-  const white = headers.White ? 'White · ' + headers.White : 'White';
-  const black = headers.Black ? 'Black · ' + headers.Black : 'Black';
+  const white = headers.White ? 'White · ' + displayPlayerName(headers.White) : 'White';
+  const black = headers.Black ? 'Black · ' + displayPlayerName(headers.Black) : 'Black';
   topPlayer.textContent = orientation === 'w' ? black : white;
   bottomPlayer.textContent = orientation === 'w' ? white : black;
   topPlayer.dataset.color = orientation === 'w' ? 'b' : 'w';
@@ -187,8 +187,8 @@ function recorded(value) {
 function renderInformation(game) {
   title.textContent = game.title;
   players.textContent = [
-    headers.White ? 'White: ' + headers.White : '',
-    headers.Black ? 'Black: ' + headers.Black : '',
+    headers.White ? 'White: ' + displayPlayerName(headers.White) : '',
+    headers.Black ? 'Black: ' + displayPlayerName(headers.Black) : '',
   ].filter(Boolean).join(' · ');
   information.replaceChildren();
   for (const [label, value] of [
@@ -255,7 +255,7 @@ function selectGame(game) {
 for (const [label, personal] of [['My games', true], ['Historical games', false]]) {
   const games = FAVORITE_GAMES.filter(game => {
     const info = gameHeaders.get(game.id);
-    return [info.White, info.Black].some(player => player?.toLowerCase() === 'nezhprodigy') === personal;
+    return [info.White, info.Black].some(isPersonalPlayer) === personal;
   });
   if (!games.length) continue;
   const group = document.createElement('section');
@@ -271,7 +271,7 @@ for (const [label, personal] of [['My games', true], ['Historical games', false]
     button.dataset.gameId = game.id;
     button.setAttribute('aria-pressed', 'false');
     for (const [className, text] of [
-      ['game-list-title', info.White && info.Black ? info.White + ' v ' + info.Black : game.title],
+      ['game-list-title', info.White && info.Black ? displayPlayerName(info.White) + ' v ' + displayPlayerName(info.Black) : game.title],
       ['game-list-event', [game.year, recorded(info.Opening) ? recorded(info.Event) || game.event : game.event || recorded(info.Event)].filter(Boolean).join(' · ')],
       ['game-list-opening', recorded(info.Opening)],
     ]) {

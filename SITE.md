@@ -68,7 +68,7 @@ node --test tests/replay.test.mjs
 
 The tests cover captures, castling, en passant, promotion, recorded FEN positions, orientation, missing PGNs, and validation of the existing game collection. Synthetic special-move fixtures exist only in the tests and are not published as games.
 
-The stored Botvinnik/Tal and Nezhmetdinov/Chernikov PGNs currently contain illegal moves. Keep them visible as records, show their validation errors, and do not silently replace their moves or replay partial games.
+The Botvinnik/Tal and Nezhmetdinov/Chernikov recordings were corrected against sourced game scores. Source URLs are preserved in their PGN headers; regression tests check their dates, complete move counts, and final positions. Invalid input must still show validation errors rather than a partial replay.
 
 Check routes and legacy forwarding, local assets, desktop and mobile widths, keyboard navigation, theme persistence, homepage terminal commands, and chess replay. Chess uses the existing local rules library in `lib/chess.js`; board rendering and piece artwork currently require access to jsDelivr. Fonts use Google Fonts with local fallbacks.
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MultiDock · Alex Mutua</title>
+  <meta name="description" content="MultiDock: independent floating docks for macOS, built with Swift 6, AppKit, and SwiftUI. Screenshots, implementation notes, and source code.">
+  <link rel="stylesheet" href="/portfolio.css?v=20261023-layout">
+  <link rel="stylesheet" href="/site-pages.css?v=20261023-layout">
+  <link rel="stylesheet" href="/projects.css?v=20261023-layout">
+  <script src="/site-theme.js" defer></script>
+</head>
+<body class="projects-page layout-project-detail">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="/">alexmutua<span>_</span></a>
+  <nav aria-label="Main navigation"><a href="/">home</a><a href="/about/">about</a><a href="/projects/" aria-current="page">projects</a><a href="/chess/">chess</a><a href="/writing/">writing</a><a href="/contact/">contact</a></nav>
+  <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme"><span aria-hidden="true">☾</span></button>
+</header>
+  <main class="project-detail wrap" id="main">
+    <a class="back-link" href="/projects/#multidock">← All projects</a>
+    <p class="section-label">macOS app / desktop utility</p>
+    <h1>MultiDock</h1>
+    <p class="detail-summary">Give each group of apps its own place on your desktop.</p>
+    <p class="project-technologies">Swift 6 · AppKit · SwiftUI · macOS</p>
+    <a class="detail-github" href="https://github.com/alexprofmutua/MultiDock" target="_blank" rel="noopener noreferrer">View MultiDock on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a>
+    <figure class="detail-screenshot"><a href="/assets/multidock-desktop-docks.png" aria-label="View full-size screenshot of MultiDock desktop docks"><img src="/assets/multidock-desktop-docks.png" alt="Annotated macOS desktop with independent horizontal and vertical MultiDock app docks on the left, right, and bottom edges" width="1556" height="1011"></a><figcaption>Separate app groups in horizontal and vertical docks. The arrows identify each dock.</figcaption></figure>
+
+    <section aria-labelledby="problem-heading">
+      <h2 id="problem-heading">Problem and motivation</h2>
+      <p>A single application tray puts every app in one place. MultiDock lets users keep separate groups around the desktop, with independent placement and behavior for each dock.</p>
+    </section>
+
+    <section aria-labelledby="functionality-heading">
+      <h2 id="functionality-heading">Main functionality</h2>
+      <ul>
+        <li>Create multiple horizontal or vertical docks with their own apps, position, and appearance.</li>
+        <li>Add apps by drag and drop, reorder them, or move and copy entries between docks.</li>
+        <li>Use stacks, folder shortcuts, running indicators, magnification, and app-name labels.</li>
+        <li>Enable auto-hide with small reveal tabs, and customize tab colors per dock.</li>
+        <li>Save layouts locally and manage docks from the menu-bar settings.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="stack-heading">
+      <h2 id="stack-heading">Technology stack</h2>
+      <dl class="detail-stack">
+        <div><dt>Swift 6</dt><dd>Application logic, dock configuration, and local persistence.</dd></div>
+        <div><dt>AppKit</dt><dd>Floating panels, native application launching, and desktop window behavior.</dd></div>
+        <div><dt>SwiftUI</dt><dd>Dock contents and settings hosted within the native application.</dd></div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="implementation-heading">
+      <h2 id="implementation-heading">Technical implementation</h2>
+      <p>Each dock uses a nonactivating AppKit <code>NSPanel</code>. Its icons accept clicks without taking keyboard focus from the application in use. SwiftUI supplies the dock contents, while AppKit manages the panels and application lifecycle.</p>
+      <p>Versioned configuration preserves dock identities, app order, appearance, and positions. Writes are serialized, debounced, and atomic. Recoverable configuration changes are backed up before saving; normal quit flushes pending edits.</p>
+      <p>The app uses documented Apple APIs and has no third-party packages, account system, telemetry, or backend.</p>
+    </section>
+
+    <section aria-labelledby="screenshots-heading">
+      <h2 id="screenshots-heading">Auto-hide and dock placement</h2>
+      <figure class="detail-screenshot"><a href="/assets/multidock-autohide-tabs.png" aria-label="View full-size screenshot of MultiDock auto-hide reveal tabs"><img src="/assets/multidock-autohide-tabs.png" alt="Annotated desktop with docks hidden and green reveal tabs visible along the left and bottom edges" width="1556" height="1011" loading="lazy"></a><figcaption>Auto-hide leaves small reveal tabs. Hover over or click a tab to bring its dock back.</figcaption></figure>
+      <figure class="detail-screenshot"><a href="/assets/multidock-desktop-layout.png" aria-label="View full-size screenshot of another MultiDock layout"><img src="/assets/multidock-desktop-layout.png" alt="Annotated desktop showing a second MultiDock arrangement with vertical app groups on both sides and horizontal groups at the bottom" width="1556" height="1011" loading="lazy"></a><figcaption>Another layout with independently positioned app groups. Original screenshot colors and annotations are preserved.</figcaption></figure>
+    </section>
+
+    <section aria-labelledby="constraints-heading">
+      <h2 id="constraints-heading">Permissions and current limits</h2>
+      <p>Ordinary docks work without Accessibility or Screen Recording permission. Optional window previews require Screen Recording; advanced window controls require Accessibility.</p>
+      <p>The repository describes version 0.10.0 as a personal-use release candidate. Local builds are ad-hoc signed, not notarized. External-display transitions and permission-granted window controls still need manual verification.</p>
+    </section>
+
+    <section aria-labelledby="run-heading">
+      <h2 id="run-heading">Build locally</h2>
+      <p>Requires an Apple Silicon Mac, macOS 14 or later, and a Swift 6 toolchain through Xcode or Command Line Tools.</p>
+      <pre class="detail-command"><code>git clone https://github.com/alexprofmutua/MultiDock.git
+cd MultiDock
+./Scripts/build-release.sh
+./Scripts/install-local.sh</code></pre>
+      <p class="detail-note">The build produces <code>dist/MultiDock-arm64.zip</code>; the installer places the app in <code>~/Applications</code>. Open <code>MultiDock.xcodeproj</code> for Xcode development. See the <a href="https://github.com/alexprofmutua/MultiDock#build-and-run" target="_blank" rel="noopener noreferrer">repository build instructions ↗</a> before installing.</p>
+    </section>
+  </main>
+<footer class="site-footer wrap"><a href="/">alexmutua<span>_</span></a><div><a href="/chess/">Chess</a><a href="https://github.com/alexprofmutua" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="/contact/">Say hello →</a></div></footer>
+</body>
+</html>
